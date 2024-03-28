@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'home_screen.dart';
+import 'bmi.dart';
 
 void main() {
   runApp(
     MaterialApp(
       title: "Project",
-      initialRoute: '/',
+      initialRoute: '/bmi',
       routes: {
         '/': (context) => const HomeScreen(),
         '/login_screen':(context) => const LogInScreen(),
         '/home_screen':(context) => const HomeScreen(),
+        '/bmi':(context) => const BMI()
       },
     )
   );
