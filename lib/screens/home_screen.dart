@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,11 +7,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomeScreen"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("HomeScreen"),
+      // ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 80,
+          ),
+
           Row(
             children: [
               const SizedBox(
@@ -21,10 +26,10 @@ class HomeScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50) ,
                 child: Container(
-                  height: 70,
-                  width: 70,
+                  height: 75,
+                  width: 75,
                   child: Icon(Icons.person, size: 35,),
-                  color: Colors.green,
+                  color: Colors.deepPurple,
                 ),
               ),
 
@@ -38,20 +43,41 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text("Username", style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16
+                    fontSize: 18
                   )),
                   Text("bio: (inspiration)", style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16
+                    fontSize: 18
                   )),
                 ],
               ),
+
+              const SizedBox(
+                width: 100,
+              ),
+
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/login_screen');
+                },
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: const Center(
+                    child: Icon(Icons.logout, color: Colors.white)
+                  )
+                ),
+              )
 
             ],
           ),
 
           const SizedBox(
-            height: 15,
+            height: 18,
           ),
 
 // Text "Activity"
@@ -66,7 +92,7 @@ class HomeScreen extends StatelessWidget {
           ),
 
           const SizedBox(
-            height: 20,
+            height: 23,
           ),
 
 // Boxes; Training, Calories
@@ -78,7 +104,7 @@ class HomeScreen extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  height: 110,
+                  height: 200,
                   width: 170,
                   color: Colors.orange[100],
                   child: const Column(
@@ -93,12 +119,21 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 20
                             )),
-                            Icon(Icons.fireplace)
+                            Icon(Icons.fitness_center)
                           ]
                         ),
                       ),
 
-                      Text("45 minutes", style: TextStyle(
+                      SizedBox(
+                        height: 40,
+                      ),
+
+                      Text("45", style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20
+                      )),
+
+                      Text("minutes", style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20
                       ))
@@ -127,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 20
                             )),
-                            Icon(Icons.fireplace)
+                            Icon(Icons.local_fire_department)
                           ]
                         ),
                       ),
@@ -141,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                         fontSize: 20
                       )),
 
-                      Text("kcal", style: TextStyle(
+                      Text("kcals", style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20
                       ))
@@ -154,7 +189,7 @@ class HomeScreen extends StatelessWidget {
           ),
 
           const SizedBox(
-                height: 20,
+                height: 23,
               ),
           
 // Text "Quick action"
@@ -169,7 +204,7 @@ class HomeScreen extends StatelessWidget {
           ),
 
           const SizedBox(
-            height: 20,
+            height: 23,
           ),
 
 // Boxes; BMI
@@ -178,11 +213,12 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              // BMIB
+              
+              // BMI
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  height: 130,
+                  height: 140,
                   width: 170,
                   color: Colors.green[200],
                   child: const Column(
@@ -197,7 +233,7 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 20
                             )),
-                            Icon(Icons.fireplace)
+                            Icon(Icons.man_rounded)
                           ]
                         ),
                       ),

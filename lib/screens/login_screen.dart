@@ -13,26 +13,33 @@ class LogInScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 60,
+              height: 80,
             ),
             
 // Text "Workout"
             const Center(
               child: Text("Workout", style: TextStyle(
                 fontSize: 30,
-                fontStyle: FontStyle.italic
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold
               )),
             ),
 
+            const SizedBox(
+              height: 20,
+            ),
+
 // Picture Space
-            Container(
-              margin: const EdgeInsets.fromLTRB(15, 25, 15, 40),
-              height: 315,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(20)
+            SizedBox(
+              height: 300,
+              width: 600,
+              child: Expanded(
+                child: Image.asset("assets/images/workout.png"),
               ),
+            ),
+
+            const SizedBox(
+              height: 30,
             ),
         
 // Login Console
@@ -40,8 +47,8 @@ class LogInScreen extends StatelessWidget {
               children: [
                 Center (
                   child: Container(
-                    height: 250,
-                    width: 320,
+                    height: 290,
+                    width: 340,
                     decoration: BoxDecoration(
                       color: Colors.deepOrange,
                       borderRadius: BorderRadius.circular(20)
@@ -72,33 +79,35 @@ class LogInScreen extends StatelessWidget {
 
 // TextFromField; Email, Password
                     Container(
-                      height: 40,
+                      height: 60,
                       width: 300,
                       margin: const EdgeInsets.fromLTRB(60, 10, 60, 0),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(5),
                         color: Colors.white
                       ),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                          icon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.email),
                           hintText: 'email',
+                          border: OutlineInputBorder()
                         ),
                       ),
                     ),
         
                     Container(
-                      height: 40,
+                      height: 60,
                       width: 300,
-                      margin: const EdgeInsets.fromLTRB(60, 12, 60, 12),
+                      margin: const EdgeInsets.fromLTRB(60, 12, 60, 13),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
                       ),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                          icon: Icon(Icons.lock),
+                          prefixIcon: Icon(Icons.lock),
                           hintText: 'password',
+                          border: OutlineInputBorder()
                         ),
                       ),
                     ),
@@ -113,16 +122,18 @@ class LogInScreen extends StatelessWidget {
                             onTap: () {},
                             child: const Text("Forget Password?", style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600
                             )),
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/signup_screen');
                             },
                             child: const Text("Create account", style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600
                             )),
                           )
                         ],
@@ -130,7 +141,7 @@ class LogInScreen extends StatelessWidget {
                     ),
         
                     const SizedBox(
-                      height: 19,
+                      height: 15,
                     ),
 
 // Login Button
