@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({super.key});
@@ -13,29 +14,62 @@ class LogInScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 80,
+              height: 75,
             ),
             
 // Text "Workout"
-            const Center(
-              child: Text("Workout", style: TextStyle(
-                fontSize: 30,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold
-              )),
+            Container(
+              decoration: const BoxDecoration(
+                boxShadow: [BoxShadow(
+                  blurRadius: 10, 
+                  blurStyle: BlurStyle.outer, 
+                  spreadRadius: 3, 
+                  color: Colors.black,
+                )]
+              ),
+              child: const Center(
+                child: Text("Workout", style: TextStyle(
+                  fontSize: 30,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold
+                )),
+              ),
             ),
 
             const SizedBox(
-              height: 20,
+              height: 25,
             ),
 
 // Picture Space
-            SizedBox(
-              height: 300,
-              width: 600,
-              child: Expanded(
-                child: Image.asset("assets/images/workout.png"),
-              ),
+            Stack(
+              children: [
+                Container(
+                  height: 355,
+                  width: double.infinity,
+                  color: Colors.blueGrey[300],
+                ),
+
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 25,
+                    ),
+
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: SizedBox(
+                          height: 300,
+                          width: 380,
+                          child: Expanded(
+                            child: Image.asset("assets/images/workout.png", fit: BoxFit.cover,),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
 
             const SizedBox(
@@ -141,7 +175,7 @@ class LogInScreen extends StatelessWidget {
                     ),
         
                     const SizedBox(
-                      height: 15,
+                      height: 12,
                     ),
 
 // Login Button
@@ -156,14 +190,14 @@ class LogInScreen extends StatelessWidget {
                               Navigator.pushNamed(context, '/bottomnavbar');
                             },
                             child: Container(
-                              height: 55,
-                              width: 55,
+                              height: 60,
+                              width: 60,
                               decoration: BoxDecoration(
                                 color: Colors.blue[100],
                                 borderRadius: BorderRadius.circular(30)
                               ),
                               child: const Icon(Icons.arrow_forward_rounded, 
-                                size: 40,
+                                size: 45,
                                 color: Color.fromARGB(255, 8, 62, 138),
                               )
                             ),

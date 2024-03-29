@@ -7,19 +7,39 @@ class SportsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text(
-          'Sports',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
+      resizeToAvoidBottomInset: true,
+      // appBar: AppBar(
+      //   title: const Text(
+      //     '\n\nSports',
+      //     style: TextStyle(fontWeight: FontWeight.bold),
+      //   ),
+      //   primary: false,
+      // ),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SearchBar(
-            leading: Icon(Icons.search),
+          SizedBox(
+            height: 60,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("    Sports", style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.bold
+              ),)
+          ],),
+          SizedBox(
+            height: 10,
+          ),
+
+          Container(
+            height: 55,
+            width: 370,
+            child: const SearchBar(
+              leading: Icon(Icons.search),
+            ),
           ),
           SizedBox(
             height: 20,

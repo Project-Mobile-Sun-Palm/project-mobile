@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BMI extends StatefulWidget {
-  const BMI({super.key});
+class BMIScreen extends StatefulWidget {
+  const BMIScreen({super.key});
 
   @override
-  State<BMI> createState() => _BMIState();
+  State<BMIScreen> createState() => _BMIScreenState();
 }
 
-class _BMIState extends State<BMI> {
+class _BMIScreenState extends State<BMIScreen> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   late String result = "";
@@ -32,7 +32,7 @@ class _BMIState extends State<BMI> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //IMAGE
-            Image.asset('assets/images/bmi_pic.webp'),
+            Image.asset('assets/images/bmi.jpg'),
             const SizedBox(
               height: 20,
             ),

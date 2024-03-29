@@ -5,21 +5,30 @@ import 'screens/home_screen.dart';
 import 'screens/calender_screen.dart';
 import 'screens/sports_screen.dart';
 import 'screens/bmi_screen.dart';
-
+import 'screens/menu_screen.dart';
+import 'screens/cardio_screen.dart';
+import 'screens/strength_screen.dart';
+import 'screens/endurance_screen.dart';
+import 'screens/setting.dart';
 
 void main() {
   runApp(
     MaterialApp(
       title: "Project",
-      initialRoute: '/bmi',
+      initialRoute: '/sports',
       routes: {
-        '/': (context) => const LogInScreen(),
+        '/':(context) => const LogInScreen(),
         '/bottomnavbar':(context) => const BottomNavBar(),
         '/login_screen':(context) => const LogInScreen(),
         '/home_screen':(context) => const HomeScreen(),
-        '/bmi':(context) => const BMI(),
+        '/bmi_screen':(context) => const BMIScreen(),
         '/signup_screen':(context) => const SignUpScreen(),
         '/sports':(context) => const SportsScreen(),
+        '/menu_screen':(context) => const MenuScreen(),
+        '/cardio_screen':(context) => const CardioScreen(),
+        '/strength_screen':(context) => const StrengthScreen(),
+        '/endurance_screen':(context) => const EnduranceScreen(),
+        '/setting_screen':(context) => const SettingScreen()
       },
     )
   );

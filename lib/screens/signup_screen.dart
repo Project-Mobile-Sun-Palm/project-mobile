@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -44,27 +45,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
           
         // Text "Create Account"
-                const Row(
+                Row(
                   children: [
-                    SizedBox(
-                      width: 100,
+                    const SizedBox(
+                      width: 90,
                     ),
-                    Text("C r e a t e", style: TextStyle(
-                      fontSize: 30,
-                      fontStyle: FontStyle.italic
-                    ))
+                    Container(
+                      height: 50,
+                      width: 160,
+                      decoration: const BoxDecoration(
+                        boxShadow: [BoxShadow(
+                          blurRadius: 10, 
+                          blurStyle: BlurStyle.outer, 
+                          spreadRadius: 3, 
+                          color: Colors.black,
+                        )]
+                      ),
+                      child: const Center(
+                        child: Text("C r e a t e", style: TextStyle(
+                          fontSize: 35,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold
+                        )),
+                      ),
+                    )
                   ],
                 ),
             
-                const Row(
+                Row(
                   children: [
-                    SizedBox(
-                      width: 140,
+                    const SizedBox(
+                      width: 130,
                     ),
-                    Text("A c c o u n t", style: TextStyle(
-                      fontSize: 30,
-                      fontStyle: FontStyle.italic
-                    ),)
+                    Container(
+                      height: 50,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        boxShadow: [BoxShadow(
+                          blurRadius: 10, 
+                          blurStyle: BlurStyle.outer, 
+                          spreadRadius: 3, 
+                          color: Colors.black,
+                        )]
+                      ),
+                      child: const Center(
+                        child: Text("A c c o u n t", style: TextStyle(
+                          fontSize: 35,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      ),
+                    )
                   ],
                 ),
             
@@ -137,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
             
                 const SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
         
         // Button SignUp
