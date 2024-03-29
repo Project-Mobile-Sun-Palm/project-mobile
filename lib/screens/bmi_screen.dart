@@ -92,10 +92,11 @@ class _BMIState extends State<BMI> {
               child: FloatingActionButton(
                 onPressed: () {
                   setState(() {
-                    height = double.parse(heightController.value.text);
-                    weight = double.parse(weightController.value.text);
+                    height = double.parse(checkString(heightController));
+                    weight = double.parse(checkString(weightController));
                   });
                   calculateBMI(height, weight);
+                 
                 },
                 child: const Text(
                   'Calculate',
@@ -139,5 +140,16 @@ class _BMIState extends State<BMI> {
     setState(() {
       result = bmi;
     });
+  }
+
+  String checkString(TextEditingController message){
+    String txt = message.text;
+    String newMessage="";
+    for(var i in txt.characters){
+      if(i.contains(RegExp('[0-9.]')) == true){
+        newMessage += i;
+      }
+    }
+    return newMessage;
   }
 }
