@@ -4,18 +4,22 @@ import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/calender_screen.dart';
 import 'screens/sports_screen.dart';
+import 'screens/bmi_screen.dart';
+
 
 void main() {
   runApp(
     MaterialApp(
       title: "Project",
-      initialRoute: '/',
+      initialRoute: '/bmi',
       routes: {
         '/': (context) => const LogInScreen(),
         '/bottomnavbar':(context) => const BottomNavBar(),
         '/login_screen':(context) => const LogInScreen(),
         '/home_screen':(context) => const HomeScreen(),
-        '/signup_screen':(context) => const SignUpScreen()
+        '/bmi':(context) => const BMI(),
+        '/signup_screen':(context) => const SignUpScreen(),
+        '/sports':(context) => const SportsScreen(),
       },
     )
   );
