@@ -16,6 +16,7 @@ class SportsScreen extends StatelessWidget {
       //   primary: false,
       // ),
       body: SingleChildScrollView(
+        
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -50,57 +51,61 @@ class SportsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20))),
-            child: const Column(
-              children: [
-                SportCard(
-                    sportName: "Walk",
-                    calories: "200 - 350",
-                    sportPic: "walking.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Boxing",
-                    calories: "800",
-                    sportPic: "boxing-gloves.png"),
-                SportCard(
-                    sportName: "Walk",
-                    calories: "200 - 350",
-                    sportPic: "walking.png"),
-              ],
+            child: Expanded(
+              child: Container(
+                child: const Column(
+                  children: [
+                    SportCard(
+                        sportName: "Walkasdasdasdasdasd",
+                        calories: "200 - 350",
+                        sportPic: "walking.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Badminton",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Boxing",
+                        calories: "800",
+                        sportPic: "boxing-gloves.png"),
+                    SportCard(
+                        sportName: "Walk",
+                        calories: "200 - 350",
+                        sportPic: "walking.png"),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
