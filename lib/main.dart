@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'screens/signup_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/calender_screen.dart';
-import 'screens/sports_screen.dart';
-import 'screens/bmi_screen.dart';
-import 'screens/menu_screen.dart';
-import 'screens/cardio_screen.dart';
-import 'screens/strength_screen.dart';
-import 'screens/endurance_screen.dart';
-import 'screens/setting.dart';
+import 'views/signup_screen.dart';
+import 'views/login_screen.dart';
+import 'views/home/home_screen.dart';
+import 'views/calender_screen.dart';
+import 'views/sports/sports_screen.dart';
+import 'views/bmi_screen.dart';
+import 'views/menu/menu_screen.dart';
+import 'views/cardio_screen.dart';
+import 'views/strength_screen.dart';
+import 'views/endurance_screen.dart';
+import 'views/setting_screen.dart';
 
 void main() {
   runApp(

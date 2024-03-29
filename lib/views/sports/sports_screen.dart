@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/screens/sports_card.dart';
+import 'package:project/views/sports/sports_card.dart';
 
 class SportsScreen extends StatelessWidget {
   const SportsScreen({super.key});
@@ -16,7 +16,6 @@ class SportsScreen extends StatelessWidget {
       //   primary: false,
       // ),
       body: SingleChildScrollView(
-        
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

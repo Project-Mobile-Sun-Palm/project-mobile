@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/widgets/calories_scale.dart';
+import 'package:project/views/home/calories_scale.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
