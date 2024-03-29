@@ -11,7 +11,8 @@ void main() {
       title: "Project",
       initialRoute: '/',
       routes: {
-        '/': (context) => const BottomNavBar(),
+        '/': (context) => const LogInScreen(),
+        '/bottomnavbar':(context) => const BottomNavBar(),
         '/login_screen':(context) => const LogInScreen(),
         '/home_screen':(context) => const HomeScreen(),
         '/signup_screen':(context) => const SignUpScreen()
@@ -30,7 +31,7 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int indexBottomNav = 0;
   List widgetOption = const [
-    LogInScreen(), CalenderScreen(), SportsScreen()
+    HomeScreen(), CalenderScreen(), SportsScreen()
   ];
 
   @override

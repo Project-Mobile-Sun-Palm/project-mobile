@@ -153,7 +153,7 @@ class LogInScreen extends StatelessWidget {
                           const Text(" "),
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/home_screen');
+                              Navigator.pushNamed(context, '/bottomnavbar');
                             },
                             child: Container(
                               height: 55,
