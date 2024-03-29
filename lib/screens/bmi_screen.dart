@@ -17,6 +17,7 @@ class _BMIState extends State<BMI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text(
           "BMI",
@@ -38,12 +39,11 @@ class _BMIState extends State<BMI> {
             //Weight input
             const Text(
               "Your weight in Kg :",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             TextField(
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               keyboardType: TextInputType.number,
@@ -51,24 +51,24 @@ class _BMIState extends State<BMI> {
               controller: weightController,
               obscureText: false,
               decoration: InputDecoration(
-                
-                filled: true,
+                  filled: true,
                   fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none),
                   hintText: 'Your weight in Kg'),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             //Height input
-            const SizedBox(height: 10,),
             const Text(
               "Your height in Cm :",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             TextField(
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               keyboardType: TextInputType.number,
@@ -76,7 +76,7 @@ class _BMIState extends State<BMI> {
               controller: heightController,
               obscureText: false,
               decoration: InputDecoration(
-                filled: true,
+                  filled: true,
                   fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -86,6 +86,7 @@ class _BMIState extends State<BMI> {
             const SizedBox(
               height: 20,
             ),
+            //Calculate Button
             Container(
               width: double.infinity,
               child: FloatingActionButton(
@@ -103,28 +104,27 @@ class _BMIState extends State<BMI> {
                 backgroundColor: Colors.orange,
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
+            //BMI output
             Container(
               width: double.infinity,
               child: Text(
                 "Your BMI is :",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Container(
               width: double.infinity,
               child: Text(
                 "$result",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -134,7 +134,7 @@ class _BMIState extends State<BMI> {
   }
 
   void calculateBMI(double height, double weight) {
-    double finalResult = weight / ((height/100) * (height/100));
+    double finalResult = weight / ((height / 100) * (height / 100));
     String bmi = finalResult.toStringAsFixed(2);
     setState(() {
       result = bmi;

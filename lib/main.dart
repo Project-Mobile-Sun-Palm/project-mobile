@@ -6,6 +6,7 @@ import 'screens/calender_screen.dart';
 import 'screens/sports_screen.dart';
 import 'screens/bmi_screen.dart';
 
+
 void main() {
   runApp(
     MaterialApp(
@@ -16,7 +17,8 @@ void main() {
         '/login_screen':(context) => const LogInScreen(),
         '/home_screen':(context) => const HomeScreen(),
         '/bmi':(context) => const BMI(),
-        '/signup_screen':(context) => const SignUpScreen()
+        '/signup_screen':(context) => const SignUpScreen(),
+        '/sports':(context) => const SportsScreen(),
       },
     )
   );
