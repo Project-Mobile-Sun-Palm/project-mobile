@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/views/home/calories_scale.dart';
+import 'package:project/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -61,8 +63,10 @@ class HomeScreen extends StatelessWidget {
                 width: 100,
               ),
 
+// LogOut
               InkWell(
                 onTap: () {
+                  Auth().signOut();
                   Navigator.pushNamed(context, '/login_screen');
                 },
                 child: Container(
@@ -143,7 +147,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               // Calories
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -311,3 +315,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

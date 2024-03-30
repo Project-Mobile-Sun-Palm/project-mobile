@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:project/controllers/signup_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project/models/account.dart';
+import 'package:project/services/auth.dart';
+import 'package:project/controllers/signup_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -9,6 +13,32 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  String? errorMessage = '';
+
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+        email: _controllerEmail.text, 
+        password: _controllerPassword.text
+      );
+      // update database '
+      SignUpController().addUser();
+      // SignUpController(Account("sun", _controllerEmail.text, _controllerPassword.text)).updateUserRecord();
+    } on FirebaseException catch (e) {
+      print("cannot create account");
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,24 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                     height: 30,
                   ),
-        
-        // TextFormField Email
-                Container(
-                  margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  decoration: const BoxDecoration(
-                  ),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.email),
-                      labelText: "Email",
-                    ),
-                  ),
-                ),
-            
-                const SizedBox(
-                    height: 30,
-                  ),
-            
+
         // TextFormField Username
                 Container(
                   margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -136,6 +149,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                     height: 30,
                   ),
+        
+        // TextFormField Email
+                Container(
+                  margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  decoration: const BoxDecoration(
+                  ),
+                  child: TextFormField(
+                    controller: _controllerEmail,
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.email),
+                      labelText: "Email",
+                    ),
+                  ),
+                ),
+            
+                const SizedBox(
+                    height: 30,
+                  ),
             
         // TextFormField Password
                 Container(
@@ -143,6 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: const BoxDecoration(
                   ),
                   child: TextFormField(
+                    controller: _controllerPassword,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.lock),
                       labelText: "Password"
@@ -173,8 +205,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         
         // Button SignUp
                 InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/login_screen');
+                  onTap: () async {
+                    await createUserWithEmailAndPassword();
                   },
                   child: Container(
                     height: 50,

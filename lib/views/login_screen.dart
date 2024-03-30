@@ -1,7 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:project/controllers/login_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project/services/auth.dart';
 
-class LogInScreen extends StatelessWidget {
-  const LogInScreen({super.key});
+class LogInScreen extends StatefulWidget {
+  LogInScreen({super.key});
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  String? errorMessage = '';
+
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _controllerEmail.text, 
+        password: _controllerPassword.text
+      );
+      Navigator.pushNamed(context, '/bottomnavbar');
+    } on FirebaseException catch (e) {
+      setState(() {
+        print("not found");
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  Widget _entryEmail(
+    TextEditingController controller
+  ) {
+    return TextField(
+      controller: controller,
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.email),
+        hintText: 'email',
+        border: OutlineInputBorder(),
+        // focusedBorder: OutlineInputBorder(
+        //   borderSide: BorderSide(color: Colors.deepOrange)
+        // )
+      ),
+    );
+  }
+
+  Widget _entryPassword(
+    TextEditingController controller
+  ) {
+    return TextField(
+      controller: controller,
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.email),
+        hintText: 'password',
+        border: OutlineInputBorder(),
+        // focusedBorder: OutlineInputBorder(
+        //   borderSide: BorderSide(color: Colors.deepOrange)
+        // )
+      ),
+    );
+  }
+
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+  }
+
+  @override
+  void dispose() {
+    _controllerEmail.dispose();
+    _controllerPassword.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,13 +190,7 @@ class LogInScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white
                       ),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                          hintText: 'email',
-                          border: OutlineInputBorder()
-                        ),
-                      ),
+                      child: _entryEmail(_controllerEmail)
                     ),
         
                     Container(
@@ -136,13 +201,7 @@ class LogInScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
                       ),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          hintText: 'password',
-                          border: OutlineInputBorder()
-                        ),
-                      ),
+                      child: _entryPassword(_controllerPassword)
                     ),
         
 // Forget Password, Create account
@@ -185,8 +244,8 @@ class LogInScreen extends StatelessWidget {
                         children: [
                           const Text(" "),
                           InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/bottomnavbar');
+                            onTap: () async {
+                              await signInWithEmailAndPassword();
                             },
                             child: Container(
                               height: 60,
