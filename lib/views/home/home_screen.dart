@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                   height: 140,
                   width: 170,
                   color: Colors.orange[100],
-                  child: Column(
+                  child: const Column(
                     children: [
                       SizedBox(
                         height: 60,
@@ -143,7 +143,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
+              
               // Calories
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),

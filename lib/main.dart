@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/firebase_options.dart';
 import 'views/signup_screen.dart';
 import 'views/login_screen.dart';
 import 'views/home/home_screen.dart';
@@ -10,8 +11,11 @@ import 'views/cardio_screen.dart';
 import 'views/strength_screen.dart';
 import 'views/endurance_screen.dart';
 import 'views/setting_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MaterialApp(
       title: "Project",

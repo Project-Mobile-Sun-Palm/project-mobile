@@ -111,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.email),
-                      hintText: "Email",
+                      labelText: "Email",
                     ),
                   ),
                 ),
