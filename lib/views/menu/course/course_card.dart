@@ -5,7 +5,19 @@ class CountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          height: MediaQuery.of(context).size.height * 0.2,
+          width: MediaQuery.of(context).size.width * 1.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [],
+          ),
+        )
+      ],
+    );
   }
 }
 //-------------------------------------------------------------------------------------

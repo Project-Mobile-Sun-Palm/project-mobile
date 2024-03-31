@@ -6,26 +6,17 @@ import 'package:project/main.dart';
 import 'package:project/models/account.dart';
 
 class SignUpController {
-  // final _db = FirebaseFirestore.instanceFor(app: app);
+  var collection = FirebaseFirestore.instanceFor(app: app).collection("User");
+  var data;
 
-  // Account account;
-  // SignUpController(this.account);
-  // final FirebaseAuth auth = FirebaseAuth.instanceFor(app: app);
-
-  // Future<void> updateUserRecord() async {
-  //   await _db.collection("User").doc("tZhrA3SxLGdJ3b7UaKok").get();
-  // }
-  var collection = FirebaseFirestore.instanceFor(app: app).collection("Admin");
-
-  addUser() async {
-    collection.add(
-      {
-        "username": "aquarat",
-        "email": "aqr@gmail.com",
-        "time": 45,
-        "calories": 2000,
-        "bmi": 20.00
-      }
-    );
-  } 
+  addData(String username, String email, double bmi, double time, double calories) async {
+    final data1 = <String, dynamic>{
+      "username": username,
+      "email": email,
+      "bmi": bmi,
+      "time":  time,
+      "calories": calories,
+    };
+    collection.doc(auth.currentUser!.uid).set(data1);
+  }
 }
