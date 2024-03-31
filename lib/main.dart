@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:project/controllers/login_controller.dart';
 import 'package:project/firebase_options.dart';
 import 'views/signup_screen.dart';
-import 'views/login_screen.dart';
 import 'views/home/home_screen.dart';
 import 'views/calender_screen.dart';
 import 'views/sports/sports_screen.dart';
@@ -23,44 +22,35 @@ late final FirebaseFirestore fireStore;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   app = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   auth = FirebaseAuth.instanceFor(app: app);
   fireStore = FirebaseFirestore.instanceFor(app: app);
-  // fireStore.settings = const Settings(
-  //   persistenceEnabled: true,
-  // );
 
-  fireStore.collection("Admin").add({
-        "username": "aquarat",
-        "email": "aqr@gmail.com",
-        "time": 45,
-        "calories": 2000,
-        "bmi": 20.00
-      });
-
-  runApp(
-    MaterialApp(
-      title: "Project",
-      initialRoute: '/',
-      routes: {
-        '/':(context) => const MainPage(),
-        '/bottomnavbar':(context) => const BottomNavBar(),
-        '/login_screen':(context) => const LogInController(),
-        '/home_screen':(context) => const HomeScreen(),
-        '/bmi_screen':(context) => const BMIScreen(),
-        '/signup_screen':(context) => const SignUpScreen(),
-        '/sports':(context) => const SportsScreen(),
-        '/menu_screen':(context) => const MenuScreen(),
-        '/cardio_screen':(context) => const CardioScreen(),
-        '/strength_screen':(context) => const StrengthScreen(),
-        '/endurance_screen':(context) => const EnduranceScreen(),
-        '/setting_screen':(context) => const SettingScreen()
-      },
-    )
+  fireStore.settings = const Settings(
+    persistenceEnabled: true,
   );
+
+  runApp(MaterialApp(
+    title: "Project",
+    initialRoute: '/signup_screen',
+    routes: {
+      '/': (context) => const MainPage(),
+      '/bottomnavbar': (context) => const BottomNavBar(),
+      '/login_screen': (context) => const LogInController(),
+      '/home_screen': (context) => const HomeScreen(),
+      '/bmi_screen': (context) => const BMIScreen(),
+      '/signup_screen': (context) => const SignUpScreen(),
+      '/sports': (context) => const SportsScreen(),
+      '/menu_screen': (context) => const MenuScreen(),
+      '/cardio_screen': (context) => const CardioScreen(),
+      '/strength_screen': (context) => const StrengthScreen(),
+      '/endurance_screen': (context) => const EnduranceScreen(),
+      '/setting_screen': (context) => const SettingScreen()
+    },
+  ));
 }
 
 class BottomNavBar extends StatefulWidget {
@@ -72,9 +62,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int indexBottomNav = 0;
-  List widgetOption = const [
-    HomeScreen(), CalenderScreen(), SportsScreen()
-  ];
+  List widgetOption = const [HomeScreen(), CalenderScreen(), SportsScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +70,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: Center(
         child: widgetOption[indexBottomNav],
       ),
-      bottomNavigationBar: BottomNavigationBar(items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'Calender'),
-        BottomNavigationBarItem(icon: Icon(Icons.sports_football), label: 'Sports'),
-      ],
-      currentIndex: indexBottomNav,
-      onTap: (value) => setState(() {
-        indexBottomNav = value;
-      }),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month), label: 'Calender'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.sports_football), label: 'Sports'),
+        ],
+        currentIndex: indexBottomNav,
+        onTap: (value) => setState(() {
+          indexBottomNav = value;
+        }),
       ),
     );
   }
