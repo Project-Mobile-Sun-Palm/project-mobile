@@ -8,9 +8,9 @@ import 'views/calender_screen.dart';
 import 'views/sports/sports_screen.dart';
 import 'views/bmi_screen.dart';
 import 'views/menu/menu_screen.dart';
-import 'views/cardio_screen.dart';
-import 'views/strength_screen.dart';
-import 'views/endurance_screen.dart';
+import 'views/menu/course/cardio_screen.dart';
+import 'views/menu/course/strength_screen.dart';
+import 'views/menu/course/endurance_screen.dart';
 import 'views/setting_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project/main_page.dart';
@@ -28,10 +28,6 @@ void main() async {
   );
   auth = FirebaseAuth.instanceFor(app: app);
   fireStore = FirebaseFirestore.instanceFor(app: app);
-
-  fireStore.settings = const Settings(
-    persistenceEnabled: true,
-  );
 
   runApp(MaterialApp(
     title: "Project",
