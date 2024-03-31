@@ -44,7 +44,7 @@ void main() async {
   runApp(
     MaterialApp(
       title: "Project",
-      initialRoute: '/',
+      initialRoute: '/menu_screen',
       routes: {
         '/':(context) => const MainPage(),
         '/bottomnavbar':(context) => const BottomNavBar(),
