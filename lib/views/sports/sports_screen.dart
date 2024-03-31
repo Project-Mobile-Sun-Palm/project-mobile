@@ -8,32 +8,17 @@ class SportsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      // appBar: AppBar(
-      //   title: const Text(
-      //     '\n\nSports',
-      //     style: TextStyle(fontWeight: FontWeight.bold),
-      //   ),
-      //   primary: false,
-      // ),
+      appBar: AppBar(
+        title: const Text(
+          "Sport",
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 60,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("    Sports", style: TextStyle(
-                fontSize: 27,
-                fontWeight: FontWeight.bold
-              ),)
-          ],),
-          SizedBox(
-            height: 10,
-          ),
-
           Container(
             height: 55,
             width: 370,
