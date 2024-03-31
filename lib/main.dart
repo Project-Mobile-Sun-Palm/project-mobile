@@ -31,7 +31,7 @@ void main() async {
 
   runApp(MaterialApp(
     title: "Project",
-    initialRoute: '/signup_screen',
+    initialRoute: '/setting_screen',
     routes: {
       '/': (context) => const MainPage(),
       '/bottomnavbar': (context) => const BottomNavBar(),

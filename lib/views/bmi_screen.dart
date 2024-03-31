@@ -54,8 +54,6 @@ class _BMIScreenState extends State<BMIScreen> {
               ],
             ),
 
-            
-
             //IMAGE
             Image.asset('assets/images/bmi.jpg'),
             const SizedBox(

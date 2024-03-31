@@ -90,6 +90,10 @@ class Account {
     return _bmi;
   }
 
+  void setUsername(String username) {
+    _username = username;
+  }
+
   void setBMI(double bmi) {
     _bmi = bmi;
   }

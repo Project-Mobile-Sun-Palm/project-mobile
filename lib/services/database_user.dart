@@ -37,6 +37,13 @@ class DatabaseUser {
     });
   }
 
+  void updateUsername(String accountID, String username) {
+    getAll(accountID).then((value) => {
+      value?.setUsername(username),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
+  }
+
   void deleteAccount(String accountID) {
     _accountsRef.doc(accountID).delete();
   }
