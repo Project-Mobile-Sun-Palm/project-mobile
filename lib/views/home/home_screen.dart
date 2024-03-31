@@ -4,6 +4,8 @@ import 'package:project/main.dart';
 import 'package:project/services/database_user.dart';
 import 'package:project/views/home/calories_scale.dart';
 import 'package:project/services/auth.dart';
+import 'package:project/controllers/font_controller.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -119,31 +121,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(username,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: defineFont(username, context, 15))),
                   // Text("bio: (inspiration)",
                   //     style:
                   //         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 ],
               ),
 
-              const SizedBox(
-                width: 180,
-              ),
+              new Spacer(),
 
 // LogOut
-              InkWell(
-                onTap: () {
-                  Auth().signOut();
-                  Navigator.pushNamed(context, '/login_screen');
-                },
-                child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrange,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(
-                        child: Icon(Icons.logout, color: Colors.white))),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                child: InkWell(
+                  onTap: () {
+                    Auth().signOut();
+                    Navigator.pushNamed(context, '/login_screen');
+                  },
+                  child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.deepOrange,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Center(
+                          child: Icon(Icons.logout, color: Colors.white))),
+                ),
               )
             ],
           ),

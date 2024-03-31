@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:stroke_text/stroke_text.dart';
+import 'package:project/controllers/font_controller.dart';
 
 class MenuCard extends StatelessWidget {
   const MenuCard(
@@ -11,70 +14,43 @@ class MenuCard extends StatelessWidget {
   final String image;
   final String courseName;
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return InkWell(
-  //     onTap: () {
-  //       Navigator.pushNamed(context, pushName);
-  //     },
-  //     child: SizedBox(
-  //       height: 160,
-  //       width: double.infinity,
-  //       child: ClipRRect(
-  //         child: Image.asset("assets/images/$image", fit: BoxFit.cover,),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, pushName);
-        },
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width * 1.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: ClipRRect(
-                      child: Image.asset("assets/images/$image", fit: BoxFit.cover,),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    courseName,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: defineFont(courseName, context, 20)),
-                  ),
-                  new Spacer(),
-                  Icon(Icons.arrow_forward_ios),
-                ],
+      onTap: () {
+        Navigator.pushNamed(context, pushName);
+      },
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: SizedBox(
+              height: 160,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  "assets/images/$image",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const Divider(
-              color: Colors.black,
-              thickness: 3,
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+            child: StrokeText(
+              text: courseName,
+              textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: defineFont(courseName, context, 15)
+              ),
+              strokeColor: Colors.black,
+              strokeWidth: 5,
             ),
-          ],
-        ));
-  }
-
-  double defineFont(String message, var context, int defaultLenght) {
-    if (message.length < defaultLenght) {
-      return MediaQuery.of(context).size.width / defaultLenght;
-    }
-    return MediaQuery.of(context).size.width / (message.length);
+          ),
+        ],
+      ),
+    );
   }
 }

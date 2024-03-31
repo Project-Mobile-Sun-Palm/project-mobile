@@ -31,7 +31,7 @@ void main() async {
 
   runApp(MaterialApp(
     title: "Project",
-    initialRoute: '/setting_screen',
+    initialRoute: '/strength_screen',
     routes: {
       '/': (context) => const MainPage(),
       '/bottomnavbar': (context) => const BottomNavBar(),
@@ -45,6 +45,7 @@ void main() async {
       '/strength_screen': (context) => const StrengthScreen(),
       '/endurance_screen': (context) => const EnduranceScreen(),
       '/setting_screen': (context) => const SettingScreen()
+      
     },
   ));
 }
