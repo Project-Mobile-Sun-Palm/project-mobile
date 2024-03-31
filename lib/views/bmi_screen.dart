@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/services/auth.dart';
+import 'package:project/services/database_user.dart';
 
 class BMIScreen extends StatefulWidget {
   const BMIScreen({super.key});
@@ -13,17 +15,22 @@ class _BMIScreenState extends State<BMIScreen> {
   late String result = "";
   late double height = 0;
   late double weight = 0;
+  late double bmi = 0;
+
+  void goBack() {
+    Navigator.pushNamed(context, '/bottomnavbar');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text(
-          "BMI",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     "BMI",
+      //     style: TextStyle(fontWeight: FontWeight.bold),
+      //   ),
+      // ),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(12),
@@ -31,6 +38,22 @@ class _BMIScreenState extends State<BMIScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 45,),
+
+            Row(
+              children: [
+                IconButton(
+                  onPressed: goBack, 
+                  icon: Icon(Icons.arrow_back, size: 28, color: Colors.black,)
+                ),
+
+                Text(" BMI", style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold
+                ),)
+              ],
+            ),
+
             //IMAGE
             Image.asset('assets/images/bmi.jpg'),
             const SizedBox(
@@ -95,8 +118,8 @@ class _BMIScreenState extends State<BMIScreen> {
                     height = double.parse(checkString(heightController));
                     weight = double.parse(checkString(weightController));
                   });
-                  calculateBMI(height, weight);
-                 
+                  bmi = calculateBMI(height, weight);
+                  DatabaseUser().updateBMI(Auth().currentUser!.uid, bmi);
                 },
                 child: const Text(
                   'Calculate',
@@ -134,12 +157,13 @@ class _BMIScreenState extends State<BMIScreen> {
     );
   }
 
-  void calculateBMI(double height, double weight) {
+  double calculateBMI(double height, double weight) {
     double finalResult = weight / ((height / 100) * (height / 100));
     String bmi = finalResult.toStringAsFixed(2);
     setState(() {
       result = bmi;
     });
+    return finalResult;
   }
 
   String checkString(TextEditingController message){

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:project/controllers/signup_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project/models/account.dart';
-import 'package:project/services/UserDB_service.dart';
-import 'package:project/services/auth.dart';
 import 'package:project/controllers/signup_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project/services/auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -15,6 +12,9 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   String? errorMessage = '';
+  String noUsername = '';
+  String noEmail = '';
+  String noPassword = '';
   String wrongInput = '';
 
   final TextEditingController _controllerEmail = TextEditingController();
@@ -38,9 +38,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
-  }
+  // Widget _errorMessage() {
+  //   return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
               Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 90,
                   ),
                   Container(
@@ -145,8 +145,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 20, child: Text(noUsername, style: TextStyle(color: Colors.red),),
                   ),
 
                   // TextFormField Email
@@ -162,8 +162,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 20, child: Text(noEmail, style: TextStyle(color: Colors.red),),
                   ),
 
                   // TextFormField Password
@@ -177,8 +177,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 20, child: Text(noPassword, style: TextStyle(color: Colors.red),),
                   ),
 
                   // TextFormField Confirm Password
@@ -200,13 +200,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // Button SignUp
                   InkWell(
                     onTap: () async {
-                      if (_controllerPassword.text != _controllerCheckPassword.text) {
+                      if (_controllerUsername.text == "") {
                         setState(() {
-                          wrongInput = "Password do not match.";
+                          noUsername = "Please input a Username";
                         });
                       } else {
-                        await createUserWithEmailAndPassword();
-                        Navigator.pushNamed(context, '/home_screen');
+                        setState(() {
+                          noUsername = "";
+                        });
+                      }
+
+                      if (_controllerEmail.text == "") {
+                          setState(() {
+                          noEmail = "Please input an Email";
+                        }); 
+                      } else {
+                        setState(() {
+                          noEmail = "";
+                        });
+                      }
+
+                      if (_controllerPassword.text != "") {
+                        setState(() {
+                          noPassword = "";
+                        });
+                      }
+
+                      if (_controllerPassword.text == "") {
+                        setState(() {
+                          noPassword = "Please input a Password";
+                        });
+                      } else if (_controllerPassword.text != _controllerCheckPassword.text) {
+                        setState(() {
+                          wrongInput = "Password is not match.";
+                        });
+                      } else if (_controllerUsername.text != "" &&
+                                 _controllerEmail.text != "" &&
+                                 _controllerPassword.text != "") {
+                                await createUserWithEmailAndPassword();
+                                Navigator.pushNamed(context, '/bottomnavbar');
                       }
                     },
                     child: Container(
@@ -233,7 +265,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
 
                   const SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
 
                   // Button SignIn
