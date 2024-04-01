@@ -44,6 +44,7 @@ void main() async {
       '/strength_screen': (context) => const StrengthScreen(),
       '/endurance_screen': (context) => const EnduranceScreen(),
       '/setting_screen': (context) => const SettingScreen()
+      
     },
   ));
 }
