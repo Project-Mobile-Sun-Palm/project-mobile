@@ -27,10 +27,11 @@ class HistoryCard extends StatelessWidget {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset("assets/images/$muscleImage"),
-                const SizedBox(width: 15),
+                Image.asset("assets/images/$muscleImage",),
+                const SizedBox(
+                  width: 15
+                ),
                 
-          
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,

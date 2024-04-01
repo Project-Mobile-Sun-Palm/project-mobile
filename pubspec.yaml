@@ -78,6 +78,22 @@ flutter:
       - assets/images/cardio.jpg
       - assets/images/strength.jpg
       - assets/images/endurance.png 
+
+      - assets/images/golf.png
+      - assets/images/walk.jpg
+      - assets/images/yoga.png
+      - assets/images/table_tennis.jpeg
+      - assets/images/badminton.jpg
+      - assets/images/basketball.png
+      - assets/images/tennis.png
+      - assets/images/boxing.jpg
+      - assets/images/climbing.png
+      - assets/images/swimming.jpg
+      - assets/images/football.png
+      - assets/images/fencing.png
+      - assets/images/squat.png
+      - assets/images/taekwondo.png
+
     # - images/a_dot_burr.jpeg
     # - images/a_dot_ham.jpeg
 
