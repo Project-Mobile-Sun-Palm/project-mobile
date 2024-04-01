@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/models/account.dart';
 import 'package:project/services/auth.dart';
-import 'package:project/services/database.dart';
-import 'package:project/services/database_user.dart';
+import 'package:project/services/database_services.dart';
+import 'package:project/services/database_users.dart';
 import 'package:project/views/login_screen.dart';
 import 'package:project/models/todo.dart';
 

@@ -15,7 +15,6 @@ import 'views/setting_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project/main_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 late final FirebaseApp app;
 late final FirebaseAuth auth;
 late final FirebaseFirestore fireStore;
@@ -31,7 +30,7 @@ void main() async {
 
   runApp(MaterialApp(
     title: "Project",
-    initialRoute: '/setting_screen',
+    initialRoute: '/login_screen',
     routes: {
       '/': (context) => const MainPage(),
       '/bottomnavbar': (context) => const BottomNavBar(),

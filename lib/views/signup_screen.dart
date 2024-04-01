@@ -16,6 +16,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String noEmail = '';
   String noPassword = '';
   String wrongInput = '';
+  bool _passwordVisible = true;
+  bool _confirmPasswordVisible = true;
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
@@ -29,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // update database
       // UserDBService()
       //     .addAccount(Account(_controllerUsername.text, _controllerEmail.text));
-      SignUpController().addData(_controllerUsername.text, _controllerEmail.text, 0, 0, 0);
+      SignUpController().addData(_controllerUsername.text, _controllerEmail.text, 0, 0, 0, "");
     } on FirebaseException catch (e) {
       print("cannot create account");
       setState(() {
@@ -169,11 +171,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // TextFormField Password
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    decoration: const BoxDecoration(),
                     child: TextFormField(
                       controller: _controllerPassword,
-                      decoration: const InputDecoration(
-                          icon: Icon(Icons.lock), labelText: "Password"),
+                      obscureText: _passwordVisible,
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.lock), 
+                        labelText: "Password",
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                            color: Colors.black54,
+                            ),
+                          onPressed: () {
+                            setState(() {
+                                _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ),
 
@@ -184,12 +201,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // TextFormField Confirm Password
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    decoration: const BoxDecoration(),
                     child: TextFormField(
                       controller: _controllerCheckPassword,
-                      decoration: const InputDecoration(
-                          icon: Icon(Icons.lock),
-                          labelText: "Confirm password"),
+                      obscureText: _confirmPasswordVisible,
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.lock),
+                        labelText: "Confirm password",
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _confirmPasswordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                            color: Colors.black54,
+                            ),
+                          onPressed: () {
+                            setState(() {
+                                _confirmPasswordVisible = !_confirmPasswordVisible;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ),
 
@@ -238,7 +269,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                  _controllerEmail.text != "" &&
                                  _controllerPassword.text != "") {
                                 await createUserWithEmailAndPassword();
-                                Navigator.pushNamed(context, '/bottomnavbar');
+                                Navigator.pushNamed(context, '/login_screen');
                       }
                     },
                     child: Container(
