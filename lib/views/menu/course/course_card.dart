@@ -22,6 +22,7 @@ class CountCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 1.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
+        border: Border.all(color: Colors.black),
         color: Colors.blueAccent
       ),
       child: Row(
@@ -61,15 +62,6 @@ class CountCard extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-//-------------------------------------------------------------------------------------
-class TimeCard extends StatelessWidget {
-  const TimeCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
 //-------------------------------------------------------------------------------------

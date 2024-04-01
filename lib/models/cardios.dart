@@ -1,14 +1,14 @@
-class Exercise{
+class Cardio{
   late String _name;
   late int _todo;
   late int _set;
   late int _restTime;
   late String _imageKey;
 
-  Exercise(this._name, this._todo, this._set, this._restTime);
-  Exercise.withKey(this._name, this._todo, this._set, this._restTime, this._imageKey);
+  Cardio(this._name, this._todo, this._set, this._restTime);
+  Cardio.withKey(this._name, this._todo, this._set, this._restTime, this._imageKey);
 
-  Exercise.fromJson(Map<String, Object?> json){
+  Cardio.fromJson(Map<String, Object?> json){
     _name = json['name'] as String;
     _todo = json['todo'] as int;
     _set = json['set'] as int;
@@ -16,8 +16,8 @@ class Exercise{
     _imageKey = json['imageKey'] as String;
   }
 
-  Exercise copyWith(String? name, int? todo, int? set, int? restTime){
-    return Exercise(
+  Cardio copyWith(String? name, int? todo, int? set, int? restTime){
+    return Cardio(
       name ?? _name,
       todo ?? _todo,
       set ?? _set,

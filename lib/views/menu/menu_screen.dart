@@ -19,7 +19,7 @@ class MenuScreen extends StatelessWidget {
           children: [
             MenuCard(pushName: '/cardio_screen', courseName: 'Cardio', image: 'cardio.jpg'),
             MenuCard(pushName: '/strength_screen', courseName: 'Strength', image: 'strength.jpg'),
-            MenuCard(pushName: '/endurance_screen', courseName: 'Endurance', image: 'endurance.png'),
+            MenuCard(pushName: '/abs_screen', courseName: 'Abs', image: 'endurance.png'),
           ],
         ),
       )

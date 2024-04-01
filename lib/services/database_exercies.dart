@@ -59,12 +59,16 @@ class ExerciseDBService{
         var exerciseData = snapshot.data();
         if (exerciseData != null) {
           var exercise = exerciseData as Exercise;
-          return exercise.getRestTime();
+          return exercise.getRestTimeAsString();
         }
       }
     } catch (e) {
       print("Error getting rest time: $e");
     }
     return null;
+  }
+
+  void addExercise(Exercise exercise) async {
+    _exerciseRef.add(exercise);
   }
 }
