@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/services/database_exercies.dart';
 import 'package:project/views/menu/course/course_card.dart';
-import 'package:project/controllers/font_controller.dart';
 
 class StrengthScreen extends StatefulWidget {
   const StrengthScreen({super.key});
