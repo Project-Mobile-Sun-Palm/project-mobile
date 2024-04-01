@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project/controllers/login_controller.dart';
 import 'package:project/firebase_options.dart';
+import 'package:project/views/login_screen.dart';
 import 'views/signup_screen.dart';
 import 'views/home/home_screen.dart';
-import 'views/calender_screen.dart';
+import 'views/history/history_screen.dart';
 import 'views/sports/sports_screen.dart';
 import 'views/bmi_screen.dart';
 import 'views/menu/menu_screen.dart';
@@ -34,7 +34,7 @@ void main() async {
     routes: {
       '/': (context) => const MainPage(),
       '/bottomnavbar': (context) => const BottomNavBar(),
-      '/login_screen': (context) => const LogInController(),
+      '/login_screen': (context) => const LogInScreen(),
       '/home_screen': (context) => const HomeScreen(),
       '/bmi_screen': (context) => const BMIScreen(),
       '/signup_screen': (context) => const SignUpScreen(),
@@ -58,7 +58,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int indexBottomNav = 0;
-  List widgetOption = const [HomeScreen(), CalenderScreen(), SportsScreen()];
+  List widgetOption = const [HomeScreen(), HistoryScreen(), SportsScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month), label: 'Calender'),
+              icon: Icon(Icons.history), label: 'History'),
           BottomNavigationBarItem(
               icon: Icon(Icons.sports_football), label: 'Sports'),
         ],

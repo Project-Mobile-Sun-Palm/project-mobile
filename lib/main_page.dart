@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
 import 'package:project/models/account.dart';
 import 'package:project/services/auth.dart';
 import 'package:project/services/database_services.dart';
@@ -23,15 +24,17 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: StreamBuilder(
-            stream: Auth().authStateChanges,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return LogInScreen();
-              } else {
-                return LogInScreen();
-              }
-            }));
+      body: StreamBuilder(
+        stream: Auth().authStateChanges,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const BottomNavBar();
+          } else {
+            return LogInScreen();
+          }
+        }
+      )
+    );
   }
 
   Widget _messagesListView() {

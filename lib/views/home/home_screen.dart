@@ -106,8 +106,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(username,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: defineFont(username, context, 15))),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold, 
+                      fontSize: defineFont(username, context, 15)
+                    )
+                  ),
                   // Text("bio: (inspiration)",
                   //     style:
                   //         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -118,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // LogOut
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                 child: InkWell(
                   onTap: () {
                     Auth().signOut();
