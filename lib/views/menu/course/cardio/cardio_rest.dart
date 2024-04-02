@@ -12,11 +12,13 @@ class CardioRest extends StatefulWidget {
   CardioRest() {
     this.length = 0;
     this.set = 0;
+    this.calories = 0;
   }
-  CardioRest.withIndex(this.length, this.set);
+  CardioRest.withIndex(this.length, this.set, this.calories);
 
   late int length;
   late int set;
+  late double calories;
 
   @override
   State<CardioRest> createState() => _CardioRestState();
@@ -68,7 +70,6 @@ class _CardioRestState extends State<CardioRest> {
                 }
 
                 Images image = images.firstWhere((element) {
-                  Images checkImg = element.data();
                   if (element.id == cardioNext.getImageKey()) {
                     return true;
                   } else {
@@ -86,9 +87,9 @@ class _CardioRestState extends State<CardioRest> {
                       restTime: cardio.getRestTime(),
                       length: cardios.length,
                       path: (widget.set == cardio.getSet() - 1 && widget.length != cardios.length - 1)
-                          ? CardioWorkout.withIndex(widget.length + 1, 0)
+                          ? CardioWorkout.withIndex(widget.length + 1, 0, widget.calories)
                           : CardioWorkout.withIndex(
-                              widget.length, widget.set + 1),
+                              widget.length, widget.set + 1, widget.calories),
                       image: image.getUrl(),
                     )),
                     InkWell(
@@ -102,14 +103,14 @@ class _CardioRestState extends State<CardioRest> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         CardioWorkout.withIndex(
-                                            widget.length + 1, 0)));
+                                            widget.length + 1, 0, widget.calories)));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         CardioWorkout.withIndex(
-                                            widget.length, widget.set + 1)));
+                                            widget.length, widget.set + 1, widget.calories)));
                           }
                         }
                       },

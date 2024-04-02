@@ -5,36 +5,33 @@ class Account {
   late double _calories;
   late double _bmi;
   late String _imagePath;
+  late String _historyKey;
 
   Account(this._username, this._email) {
     this._time = 0;
     this._bmi = 0;
     this._calories = 0;
     this._imagePath = "";
+    this._historyKey = "";
   }
 
   Account.withAllData(String? username, String? email, double? time,
-      double? bmi, double? calories, String ? impagePath) {
+      double? bmi, double? calories, String ? impagePath, String ? historyKey) {
     username ?? _username;
     email ?? _email;
     time ?? _time;
     bmi ?? _bmi;
     calories ?? _calories;
     impagePath ?? _imagePath;
+    historyKey ?? _historyKey;
   }
 
   Account.fromJson(Map<String, Object?> json) {
     _username = json['username'] as String;
     _email = json['email'] as String;
     _imagePath = json['imagePath'] as String;
-
-    if (json['time'].toString().contains(".")) {
-      _time = json['time'] as double;
-    } else {
-      int number = json['time'] as int;
-      _time = number * 1.0;
-    }
-
+    _historyKey = json['historyKey'] as String;
+ 
     if (json['time'].toString().contains(".")) {
       _time = json['time'] as double;
     } else {
@@ -59,9 +56,9 @@ class Account {
   }
 
   Account copyWith(String? username, String? email, double? time, double? bmi,
-      double? calories, String? imagePath) {
+      double? calories, String? imagePath, String? historyKey) {
     return Account.withAllData(username ?? _username, email ?? _email,
-        time ?? _time, bmi ?? _bmi, calories ?? _calories, imagePath ?? _imagePath);
+        time ?? _time, bmi ?? _bmi, calories ?? _calories, imagePath ?? _imagePath, historyKey ?? _historyKey);
   }
 
   Map<String, Object?> toJson() {
@@ -71,7 +68,8 @@ class Account {
       'time': _time,
       'calories': _calories,
       'bmi': _bmi,
-      'imagePath': _imagePath
+      'imagePath': _imagePath,
+      'historyKey': _historyKey
     };
   }
 
@@ -103,6 +101,10 @@ class Account {
     return _imagePath;
   }
 
+  String getHistoryKey() {
+    return _historyKey;
+  }
+
   void setUsername(String username) {
     _username = username;
   }
@@ -114,8 +116,13 @@ class Account {
   void setTime(double? time){
     _time += time ?? 0;
   }
+  
   void setImage(String image) {
     _imagePath = image;
+  }
+
+  void setHistoryKey(String historyKey) {
+    _historyKey = historyKey;
   }
 
 }

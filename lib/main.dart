@@ -50,7 +50,7 @@ void main() async {
       '/setting_screen': (context) => const SettingScreen(),
       '/strength_workout': (context) => StrengthWorkout(),
       '/cardio_workout': (context) => CardioWorkout(), 
-      '/abs_workout': (context) => AbsWorkout(),   
+      '/abs_workout': (context) => AbsWorkout(), 
     },
   ));
 }

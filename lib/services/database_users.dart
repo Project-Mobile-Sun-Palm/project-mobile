@@ -71,6 +71,14 @@ class DatabaseUser {
     });
   }
 
+  void updateHistoryKey(String accountID, String historyKey) async {
+      // String imageUrl = await uploadImageToStorage("profile", image);
+      // getAll(accountID).then((value) => {
+      // value?.setImage(imageUrl),
+      // updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    // });
+  }
+
   void deleteAccount(String accountID) {
     _accountsRef.doc(accountID).delete();
   }
@@ -185,6 +193,23 @@ class DatabaseUser {
           var account = accountData as Account;
           return account
               .getImagePath();
+        }
+      }
+    } catch (e) {
+      print("Error getting username: $e");
+    }
+    return null;
+  }
+
+  Future<String?> getHistoryKey(String userId) async {
+    try {
+      var snapshot = await _accountsRef.doc(userId).get();
+      if (snapshot.exists) {
+        var accountData = snapshot.data();
+        if (accountData != null) {
+          var account = accountData as Account;
+          return account
+              .getHistoryKey();
         }
       }
     } catch (e) {

@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:project/models/account.dart';
+import 'package:project/models/history.dart';
+import 'package:project/services/database_history.dart';
+import 'package:project/services/database_users.dart';
 import 'package:project/views/history/history_card.dart';
  
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
+
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+
+  DatabaseUser databaseUser = DatabaseUser();
+  DatabaseHistory databaseHistory = DatabaseHistory();
 
   @override
   Widget build(BuildContext context) {
@@ -15,71 +28,54 @@ class HistoryScreen extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.deepOrange[400],
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: const Expanded(
-              child: Column(
-                children: [
-                  HistoryCard(
-                      muscleImage: "walking.png",
-                      day: "May 10, 6:00",
-                      name: "Six pack Abs",
-                      time: "45",
-                      calories: "2000",
-                  ),
-                  HistoryCard(
-                      muscleImage: "boxing-gloves.png",
-                      day: "May 6, 6:30",
-                      name: "Cardio",
-                      time: "30",
-                      calories: "1300",
-                  ),
-                  HistoryCard(
-                      muscleImage: "walking.png",
-                      day: "May 4, 7:00",
-                      name: "Strength",
-                      time: "33",
-                      calories: "1322",
-                  ),
-                  HistoryCard(
-                      muscleImage: "boxing-gloves.png",
-                      day: "May 3, 6:00",
-                      name: "Six pack Abs",
-                      time: "52",
-                      calories: "322",
-                  ),
-                  HistoryCard(
-                      muscleImage: "walking.png",
-                      day: "May 2, 6:00",
-                      name: "Six pack Abs",
-                      time: "15",
-                      calories: "30",
-                  ),
-                  HistoryCard(
-                      muscleImage: "boxing-gloves.png",
-                      day: "May 1, 6:00",
-                      name: "Cardio",
-                      time: "27",
-                      calories: "389",
-                  ),
-                  
-                ],
-              ),
-            ),
-          ),
-        ],
-      )),
+      body: StreamBuilder(
+          stream: databaseUser.getAccounts(),
+          builder: (context, snapshot) {
+            List userss = snapshot.data?.docs ?? [];
+
+            if (userss.isEmpty) {
+              return const Center(
+                child: Text("Please add some users."),
+              );
+            }
+
+            return StreamBuilder(
+                stream: databaseHistory.getHistories(),
+                builder: ((context, snapshot) {
+                  List histories = snapshot.data?.docs ?? [];
+
+                  if (histories.isEmpty) {
+                    return const Center(
+                      child: Text("Please add some histories."),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: userss.length,
+                    itemBuilder: (context, index) {
+                      Account users = userss[index].data();
+
+                      History history = histories.firstWhere((element) {
+                        if (element.id == users.getHistoryKey()) {
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      }).data();
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        child: HistoryCard(
+                            date: history.getDate(),
+                            name: history.getName(),
+                            time: history.getTime(),
+                            calories: history.getCalories(),
+                        )
+                      );
+                    },
+                  );
+                }));
+          }),
     );
   }
 }

@@ -24,45 +24,47 @@ class _SettingScreenState extends State<SettingScreen> {
     showModalBottomSheet(
       backgroundColor: Colors.blue[100],
       context: context, builder: (builder) {
-      return Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height/4.5,
-          child: Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    _pickImageFromGallery();
-                  },
-                  child: SizedBox(
-                    child: Column(
-                      children: [
-                        Icon(Icons.image, size: 70,),
-                        Text("Gallery")
-                      ],
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height/4.5,
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      _pickImageFromGallery();
+                    },
+                    child: SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(Icons.image, size: 70,),
+                          Text("Gallery")
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-        
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    _pickImageFromCamera();
-                  },
-                  child: SizedBox(
-                    child: Column(
-                      children: [
-                        Icon(Icons.camera_alt, size: 70,),
-                        Text("Camera")
-                      ],
+          
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      _pickImageFromCamera();
+                    },
+                    child: SizedBox(
+                      child: Column(
+                        children: [
+                          Icon(Icons.camera_alt, size: 70,),
+                          Text("Camera")
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       );

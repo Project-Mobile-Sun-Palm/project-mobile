@@ -5,8 +5,8 @@ import 'package:project/services/database_abs.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/models/abs.dart';
 import 'package:project/models/images.dart';
-import 'package:project/models/timer.dart';
 import 'package:project/services/database_timer.dart';
+import 'package:project/views/menu/course/workout/before_finish.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/abs/abs_rest.dart';
@@ -17,11 +17,13 @@ class AbsWorkout extends StatefulWidget {
   AbsWorkout() {
     this.length = 0;
     this.set = 0;
+    this.calories = 0;
   }
-  AbsWorkout.withIndex(this.length, this.set);
+  AbsWorkout.withIndex(this.length, this.set, this.calories);
 
   late int length;
   late int set;
+  late double calories;
 
   @override
   State<AbsWorkout> createState() => _AbsWorkoutState();
@@ -92,16 +94,22 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                     InkWell(
                       onTap: () {
                         DatabaseUser().updateCalories(auth.currentUser!.uid, abs.getCalories());
+                        widget.calories += abs.getCalories();
                         if (widget.length == abss.length - 1 && widget.set == abs.getSet()-1) {
                           TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
-                          Navigator.pushNamed(context, '/menu_screen');
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (context) => BeforeFinishScreen(calories: widget.calories,)));
+
+
+
                         } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         AbsRest.withIndex(
-                                            widget.length, widget.set)));
+                                            widget.length, widget.set, widget.calories)));
                           
                         }
                       },
@@ -121,7 +129,9 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                           textAlign: TextAlign.center,
                         )),
                       ),
-                    )
+                    ),
+
+                    
                   ],
                 );
               });

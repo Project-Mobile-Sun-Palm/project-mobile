@@ -12,11 +12,13 @@ class AbsRest extends StatefulWidget {
   AbsRest() {
     this.length = 0;
     this.set = 0;
+    this.calories = 0;
   }
-  AbsRest.withIndex(this.length, this.set);
-
+  AbsRest.withIndex(this.length, this.set, this.calories);
+  
   late int length;
   late int set;
+  late double calories;
 
   @override
   State<AbsRest> createState() => _AbsRestState();
@@ -87,8 +89,8 @@ class _AbsRestState extends State<AbsRest> {
                       length: abss.length,
                       path: (widget.set == abs.getSet() - 1 &&
                               widget.length != abss.length - 1)
-                          ? AbsWorkout.withIndex(widget.length + 1, 0)
-                          : AbsWorkout.withIndex(widget.length, widget.set + 1),
+                          ? AbsWorkout.withIndex(widget.length + 1, 0, widget.calories)
+                          : AbsWorkout.withIndex(widget.length, widget.set + 1, widget.calories),
                       image: image.getUrl(),
                     )),
                     InkWell(
@@ -104,13 +106,13 @@ class _AbsRestState extends State<AbsRest> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AbsWorkout.withIndex(
-                                      widget.length + 1, 0)));
+                                      widget.length + 1, 0, widget.calories)));
                         } else {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AbsWorkout.withIndex(
-                                      widget.length, widget.set + 1)));
+                                      widget.length, widget.set + 1, widget.calories)));
                           // }
                         }
                       },

@@ -61,7 +61,7 @@ class _MenuScreenState extends State<MenuScreen> {
           actions: [
             IconButton(
               onPressed: (){
-                Navigator.pushNamed(context, '/home_screen');
+                Navigator.pushNamed(context, '/bottomnavbar');
               }, 
               icon: Icon(Icons.home)
             )

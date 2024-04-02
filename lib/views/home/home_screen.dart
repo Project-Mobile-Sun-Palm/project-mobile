@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:project/controllers/bmi_controller.dart';
 import 'package:project/controllers/time_converter.dart';
 import 'package:project/main.dart';
+import 'package:project/services/database_max_cal.dart';
 import 'package:project/services/database_users.dart';
 import 'package:project/views/home/calories_scale.dart';
 import 'package:project/services/auth.dart';
@@ -22,6 +25,50 @@ class _HomeScreenState extends State<HomeScreen> {
   double bmi = -1;
   double calories = -1;
   String image = "";
+  double maxCal = 4000;
+
+  static Route<Object?> _dialogBuilder(
+      BuildContext context, Object? arguments) {
+      TextEditingController caloriesController = TextEditingController();
+    return DialogRoute<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Add max calories'),
+          content: TextField(
+            controller: caloriesController,
+            decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.local_fire_department),
+            hintText: 'Calories',
+            border: const OutlineInputBorder()
+          ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Confirm'),
+              onPressed: () {
+                DatabaseMaxCal().addData(double.parse(caloriesController.text));
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/bottomnavbar');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
               image = value ?? "";
             })
       });
+
+       DatabaseMaxCal().getMaxCalories(auth.currentUser!.uid).then((value) {
+            setState(() {
+              maxCal = value ?? 4000; 
+            });
+      },);
     }
 
     return Scaffold(
@@ -199,49 +252,54 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               // Calories
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  height: 200,
-                  width: 170,
-                  color: Colors.pink[100],
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 60,
-                        width: 135,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Calories",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20)),
-                              Icon(Icons.local_fire_department)
-                            ]),
-                      ),
-                      Container(
-                        height: 125,
-                        width: 125,
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: 125,
-                              width: 125,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(
-                                    width: 10, color: Colors.pink.shade100),
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                              child: getRadialGauge(calories),
-                            )
-                          ],
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).restorablePush(_dialogBuilder);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    height: 200,
+                    width: 170,
+                    color: Colors.pink[100],
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 60,
+                          width: 135,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Calories",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20)),
+                                Icon(Icons.local_fire_department)
+                              ]),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          height: 125,
+                          width: 125,
+                          child: Stack(
+                            children: [
+                              Container(
+                                height: 125,
+                                width: 125,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                      width: 10, color: Colors.pink.shade100),
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Container(
+                                child: getRadialGauge(calories, maxCal),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )

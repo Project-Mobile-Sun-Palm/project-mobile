@@ -5,7 +5,7 @@ import 'package:project/services/database_exercies.dart';
 import 'package:project/services/database_timer.dart';
 import 'package:project/models/exercise.dart';
 import 'package:project/models/images.dart';
-import 'package:project/models/timer.dart';
+import 'package:project/views/menu/course/workout/before_finish.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/strength/strength_rest.dart';
@@ -17,11 +17,13 @@ class StrengthWorkout extends StatefulWidget {
   StrengthWorkout() {
     this.length = 0;
     this.set = 0;
+    this.calories = 0;
   }
-  StrengthWorkout.withIndex(this.length, this.set);
+  StrengthWorkout.withIndex(this.length, this.set, this.calories);
 
   late int length;
   late int set;
+  late double calories;
 
   @override
   State<StrengthWorkout> createState() => _StrengthWorkoutState();
@@ -68,7 +70,6 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                 }
 
                 Images image = images.firstWhere((element) {
-                  Images checkImg = element.data();
                   if (element.id == exercise.getImageKey()) {
                     return true;
                   } else {
@@ -96,19 +97,20 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                       onTap: () {
                         DatabaseUser().updateCalories(
                             auth.currentUser!.uid, exercise.getCalories());
+                        widget.calories += exercise.getCalories();
                         if (widget.length == exercises.length - 1 &&
                             widget.set == exercise.getSet() - 1) {
                           TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
-                          
-                            
-                          Navigator.pushNamed(context, '/menu_screen');
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (context) => BeforeFinishScreen(calories: widget.calories,)));
                           
                         } else {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => StrengthRest.withIndex(
-                                      widget.length, widget.set)));
+                                      widget.length, widget.set, widget.calories)));
                         }
                       },
                       child: Container(

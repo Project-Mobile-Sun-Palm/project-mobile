@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-Widget getRadialGauge(double currentValue) {
+Widget getRadialGauge(double currentValue, double maxValue) {
+
   return SfRadialGauge(
     enableLoadingAnimation: true,
     axes: <RadialAxis>[
@@ -11,7 +12,7 @@ Widget getRadialGauge(double currentValue) {
         startAngle: 270, 
         endAngle: 630, 
         minimum: 0, 
-        maximum: 3000, 
+        maximum: maxValue, 
 
         pointers: <GaugePointer>[
           RangePointer( // Set current
@@ -27,7 +28,7 @@ Widget getRadialGauge(double currentValue) {
                   style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.bold)),
 
-                Text("kcals", 
+                Text("Kcals", 
                   style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.bold)),
               ],

@@ -1,32 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HistoryCard extends StatelessWidget {
   const HistoryCard(
       {super.key,
-      required this.muscleImage,
-      required this.day,
+      required this.date,
       required this.name,
       required this.time,
       required this.calories});
 
-  final String muscleImage;
-  final String day;
+  final Timestamp date;
   final String name;
-  final String time;
-  final String calories; 
+  final double time;
+  final double calories; 
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
+          color: Colors.deepOrange,
           padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height * 0.17,
           width: MediaQuery.of(context).size.width * 1.0,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset("assets/images/$muscleImage",),
                 const SizedBox(
                   width: 15
                 ),
@@ -35,7 +35,7 @@ class HistoryCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("$day", style: const TextStyle(
+                    Text("${DateFormat("MMMM d,").add_jm().format(date.toDate())}", style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17,
                       fontWeight: FontWeight.bold
@@ -97,5 +97,7 @@ class HistoryCard extends StatelessWidget {
         ),
       ],
     );
+
+
   }
 }

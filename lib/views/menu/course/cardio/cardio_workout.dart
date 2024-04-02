@@ -5,8 +5,8 @@ import 'package:project/services/database_timer.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/models/cardios.dart';
 import 'package:project/models/images.dart';
+import 'package:project/views/menu/course/workout/before_finish.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
-import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/cardio/cardio_rest.dart';
 import 'package:project/views/menu/menu_screen.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -17,11 +17,13 @@ class CardioWorkout extends StatefulWidget {
   CardioWorkout() {
     this.length = 0;
     this.set = 0;
+    this.calories = 0;
   }
-  CardioWorkout.withIndex(this.length, this.set);
+  CardioWorkout.withIndex(this.length, this.set, this.calories);
 
   late int length;
   late int set;
+  late double calories;
 
   @override
   State<CardioWorkout> createState() => _CardioWorkoutState();
@@ -68,7 +70,6 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                 }
 
                 Images image = images.firstWhere((element) {
-                  Images checkImg = element.data();
                   if (element.id == cardio.getImageKey()) {
                     return true;
                   } else {
@@ -77,8 +78,14 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                 }).data();
 
                 DatabaseUser().updateCalories(auth.currentUser!.uid, cardio.getCalories());
-                if(widget.length==0 && widget.set==0){TimerDBService().updateBegin(auth.currentUser!.uid, Timestamp.now());}
-                if(widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1){TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());}
+                widget.calories += cardio.getCalories();
+                if(widget.length==0 && widget.set==0){
+                  TimerDBService().updateBegin(auth.currentUser!.uid, Timestamp.now());
+                  }
+                if(widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1){
+                  TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
+                  return BeforeFinishScreen(calories: widget.calories);
+                  }
 
                 return Column(
                   children: [
@@ -89,7 +96,9 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                       set: cardio.getSet(),
                       restTime: cardio.getRestTime(),
                       length: widget.length,
-                      path: (widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1) ?MenuScreen():CardioRest.withIndex(widget.length, widget.set),
+                      path: (
+                        widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1) ? MenuScreen()
+                        :CardioRest.withIndex(widget.length, widget.set, widget.calories),
                       image: image.getUrl(),
                     )),
                   ],
