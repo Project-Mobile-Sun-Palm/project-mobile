@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/controllers/bmi_controller.dart';
+import 'package:project/controllers/time_converter.dart';
 import 'package:project/main.dart';
 import 'package:project/services/database_user.dart';
 import 'package:project/views/home/calories_scale.dart';
@@ -197,10 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               )
                             ]),
                       ),
-                      Text(training_time.toInt().toString(),
+                      Text("${TimeConverter().toHrStr(training_time)}:${TimeConverter().toMinute(training_time)}:${TimeConverter().toSecondStr(training_time)}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20)),
-                      Text("minutes",
+                      Text("Hours",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20))
                     ],
