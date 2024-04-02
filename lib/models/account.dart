@@ -14,7 +14,7 @@ class Account {
     this._bmi = 0;
     this._calories = 0;
     this._imagePath = "";
-    this._historyKey = [];
+    this._historyKey = [""];
   }
 
   Account.withAllData(String? username, String? email, double? time,

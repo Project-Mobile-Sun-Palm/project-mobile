@@ -34,32 +34,37 @@ class _FinishedScreenState extends State<FinishedScreen> {
         ));
   }
 
-    @override
-    initState() {
-      TimerDBService().getAll(auth.currentUser!.uid).then((timer) => {
-            setState(() {
-              Timer tmp = timer ?? Timer(Timestamp(0, 0), Timestamp(0, 0));
-              DateTime begin = DateTime(
-                  tmp.getBegin().toDate().year,
-                  tmp.getBegin().toDate().month,
-                  tmp.getBegin().toDate().day,
-                  tmp.getBegin().toDate().hour,
-                  tmp.getBegin().toDate().minute,
-                  tmp.getBegin().toDate().second);
+  @override
+  initState() {
+    TimerDBService().getAll(auth.currentUser!.uid).then((timer) => {
+          setState(() {
+            Timer tmp = timer ?? Timer(Timestamp(0, 0), Timestamp(0, 0));
+            DateTime begin = DateTime(
+                tmp.getBegin().toDate().year,
+                tmp.getBegin().toDate().month,
+                tmp.getBegin().toDate().day,
+                tmp.getBegin().toDate().hour,
+                tmp.getBegin().toDate().minute,
+                tmp.getBegin().toDate().second);
 
-              DateTime finish = DateTime(
-                  tmp.getFinish().toDate().year,
-                  tmp.getFinish().toDate().month,
-                  tmp.getFinish().toDate().day,
-                  tmp.getFinish().toDate().hour,
-                  tmp.getFinish().toDate().minute,
-                  tmp.getFinish().toDate().second);
+            DateTime finish = DateTime(
+                tmp.getFinish().toDate().year,
+                tmp.getFinish().toDate().month,
+                tmp.getFinish().toDate().day,
+                tmp.getFinish().toDate().hour,
+                tmp.getFinish().toDate().minute,
+                tmp.getFinish().toDate().second);
 
-              time = begin.difference(finish);
-              
-            })
-          });
-    }
+            time = begin.difference(finish);
+
+            DatabaseUser().updateTime(
+                auth.currentUser!.uid, (time.inSeconds * 1.0).abs());
+
+            TimerDBService().updateTimer(
+                auth.currentUser!.uid, Timer(Timestamp.now(), Timestamp.now()));
+          })
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,90 +94,84 @@ class _FinishedScreenState extends State<FinishedScreen> {
 
               return Column(children: [
                 createPic(url, context),
-
                 Container(
                   padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-                  child: Text("Congratulation !!!", style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic
-                  ),),
+                  child: Text(
+                    "Congratulation !!!",
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                  ),
                 ),
-
                 Container(
                   padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                  child: Text("Workout Completed", style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic
-                  ),),
+                  child: Text(
+                    "Workout Completed",
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                  ),
                 ),
-
                 const Divider(
                   thickness: 3,
                   color: Colors.blueAccent,
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
-
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.deepOrange),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "Time",
-                        style: TextStyle(
-                          fontSize: 25, 
-                          color: Colors.white),
-                      ),
-
-                      Text(
-                        "${TimeConverter().toMinute((time.inSeconds * 1.0).abs())}:${TimeConverter().toSecondStr((time.inSeconds * 1.0).abs())}",
-                        style: TextStyle(
-                          fontSize: 28, 
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                      ),
-
-                      const Divider(
-                        thickness: 7,
-                        color: Colors.white,
-                      ),
-
-                      Text(
-                        "Calories",
-                        style: TextStyle(
-                          fontSize: 25, 
-                          color: Colors.white),
-                      ),
-
-                      Text(
-                        "${widget.calories} kcals",
-                        style: TextStyle(
-                          fontSize: 28, 
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                      ),
-                    ],
-                  )
-                ),
-
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.deepOrange),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Time",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        ),
+                        Text(
+                          "${TimeConverter().toMinute((time.inSeconds * 1.0).abs())}:${TimeConverter().toSecondStr((time.inSeconds * 1.0).abs())}",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        const Divider(
+                          thickness: 7,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "Calories",
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        ),
+                        Text(
+                          "${widget.calories} kcals",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    )),
                 const SizedBox(
                   height: 25,
                 ),
-
                 InkWell(
                   onTap: () {
-                    HistoryController().addData(Timestamp.now(), image.getName(), (time.inSeconds * 1.0).abs(), widget.calories);
-                    String docPath = "${auth.currentUser!.uid}${Timestamp.now().toDate().toString().substring(0, 18)}";
-                    DatabaseUser().updateHistoryKey(auth.currentUser!.uid, docPath);
+                    HistoryController().addData(
+                        Timestamp.now(),
+                        image.getName(),
+                        (time.inSeconds * 1.0).abs(),
+                        widget.calories);
+                    String docPath =
+                        "${auth.currentUser!.uid}${Timestamp.now().toDate().toString().substring(0, 18)}";
+                    DatabaseUser()
+                        .updateHistoryKey(auth.currentUser!.uid, docPath);
                     Navigator.pushNamed(context, '/bottomnavbar');
                   },
                   child: Container(

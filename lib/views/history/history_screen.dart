@@ -6,7 +6,7 @@ import 'package:project/services/auth.dart';
 import 'package:project/services/database_history.dart';
 import 'package:project/services/database_users.dart';
 import 'package:project/views/history/history_card.dart';
- 
+
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
 
@@ -15,7 +15,6 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-
   DatabaseUser databaseUser = DatabaseUser();
   DatabaseHistory databaseHistory = DatabaseHistory();
 
@@ -63,36 +62,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       for (var i in histories) {
                         if (i.id == account.getHistoryKey()[index]) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: HistoryCard(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              child: HistoryCard(
                                 date: i.data().getDate(),
                                 name: i.data().getName(),
                                 time: i.data().getTime(),
                                 calories: i.data().getCalories(),
-                            )
-                          );
+                              ));
                         }
                       }
-
-                      // History history = histories.firstWhere((element) {
-                      //   if (element.id == users.getHistoryKey()[index]) {
-                      //     return true;
-                      //   } else {
-                      //     return false;
-                      //   }
-                      // }).data();
-
-                      // return Padding(
-                      //   padding: const EdgeInsets.symmetric(
-                      //       vertical: 10, horizontal: 10),
-                      //   child: HistoryCard(
-                      //       date: history.getDate(),
-                      //       name: history.getName(),
-                      //       time: history.getTime(),
-                      //       calories: history.getCalories(),
-                      //   )
-                      // );
+                      return const SizedBox(
+                        height: 0,
+                      );
                     },
                   );
                 }));

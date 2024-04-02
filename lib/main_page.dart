@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
             stream: Auth().authStateChanges,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return BottomNavBar();
+                return LogInScreen();
               } else {
                 return LogInScreen();
               }

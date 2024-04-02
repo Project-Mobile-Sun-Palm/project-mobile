@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project/controllers/time_converter.dart';
 
 class HistoryCard extends StatelessWidget {
   const HistoryCard(
@@ -56,12 +57,12 @@ class HistoryCard extends StatelessWidget {
                       children: [
                         Icon(Icons.timer),
                         Text(" "),
-                        Text("$time", style: const TextStyle(
+                        Text("${time<3600 ? "" : TimeConverter().toHrStr(time)+":"}${TimeConverter().toMinute(time)}:${TimeConverter().toSecondStr(time)}", style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                         ),),
-                        Text("  minutes", style: const TextStyle(
+                        Text("  ${time<3600 ? "minutes" : "hours"}", style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14
                         ),)
@@ -77,7 +78,7 @@ class HistoryCard extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.bold
                         ),),
-                        Text("  kcals", style: const TextStyle(
+                        Text("  cals", style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14
                         ),)

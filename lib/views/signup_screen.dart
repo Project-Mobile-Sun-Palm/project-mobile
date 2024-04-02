@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // UserDBService()
       //     .addAccount(Account(_controllerUsername.text, _controllerEmail.text));
       TimerDBService().addTimer(Timestamp(0, 0), Timestamp(0, 0));
-      SignUpController().addData(_controllerUsername.text, _controllerEmail.text, 0, 0, 0, "", "");
+      SignUpController().addData(_controllerUsername.text, _controllerEmail.text, 0, 0, 0, "", [""]);
     } on FirebaseException catch (e) {
       print("cannot create account");
       setState(() {
