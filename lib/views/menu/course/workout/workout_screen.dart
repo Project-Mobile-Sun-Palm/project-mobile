@@ -203,10 +203,10 @@ Widget countDown(var context, int restTime, int length, var path) {
     isTimerTextShown: true,
     autoStart: true,
     onStart: () {
-      debugPrint('Countdown Started');
+      // debugPrint('Countdown Started');
     },
     onComplete: () {
-      debugPrint('Countdown Ended');
+      // debugPrint('Countdown Ended');
       // try{
         Navigator.push(
             context,
@@ -217,7 +217,7 @@ Widget countDown(var context, int restTime, int length, var path) {
       // }
     },
     onChange: (String timeStamp) {
-      debugPrint('Countdown Changed $timeStamp');
+      // debugPrint('Countdown Changed $timeStamp');
     },
     timeFormatterFunction: (defaultFormatterFunction, duration) {
       if (duration.inSeconds == 0) {

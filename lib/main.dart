@@ -17,7 +17,7 @@ import 'package:project/main_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project/views/menu/course/strength/strength_workout.dart';
 import 'package:project/views/menu/course/cardio/cardio_workout.dart';
-
+import 'package:project/views/menu/course/abs/abs_workout.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -49,7 +49,8 @@ void main() async {
       '/abs_screen': (context) => const AbsScreen(),
       '/setting_screen': (context) => const SettingScreen(),
       '/strength_workout': (context) => StrengthWorkout(),
-      '/cardio_workout': (context) => CardioWorkout(),   
+      '/cardio_workout': (context) => CardioWorkout(), 
+      '/abs_workout': (context) => AbsWorkout(),   
     },
   ));
 }

@@ -19,6 +19,18 @@ class _CardPageState extends State<CardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100), color: Colors.amber),
+        child: IconButton(
+          color: Colors.black,
+          highlightColor: Colors.orange,
+          icon: Icon(Icons.play_arrow),
+          onPressed: () {
+            Navigator.pushNamed(context, '/abs_workout');
+          },
+        ),
+      ),
       body: StreamBuilder(
           stream: absDBService.getAbs(),
           builder: (context, snapshot) {

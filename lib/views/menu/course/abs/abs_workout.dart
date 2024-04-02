@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:project/services/database_abs.dart';
 import 'package:project/services/database_images.dart';
-import 'package:project/services/database_exercies.dart';
-import 'package:project/models/exercise.dart';
+import 'package:project/services/database_abs.dart';
+import 'package:project/models/abs.dart';
 import 'package:project/models/images.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
-import 'package:project/views/menu/course/strength/strength_rest.dart';
+import 'package:project/views/menu/course/abs/abs_rest.dart';
 
-class StrengthWorkout extends StatefulWidget {
-  StrengthWorkout() {
+class AbsWorkout extends StatefulWidget {
+  AbsWorkout() {
     this.length = 0;
     this.set = 0;
   }
-  StrengthWorkout.withIndex(this.length, this.set);
+  AbsWorkout.withIndex(this.length, this.set);
 
   late int length;
   late int set;
 
   @override
-  State<StrengthWorkout> createState() => _StrengthWorkoutState();
+  State<AbsWorkout> createState() => _AbsWorkoutState();
 }
 
-class _StrengthWorkoutState extends State<StrengthWorkout> {
+class _AbsWorkoutState extends State<AbsWorkout> {
   ImagesDBService imagesDBService = ImagesDBService();
-  ExerciseDBService exerciseDBService = ExerciseDBService();
+  AbsDBService absDBService = AbsDBService();
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +33,18 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
         automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
-        stream: exerciseDBService.getExercise(),
+        stream: absDBService.getAbs(),
         builder: ((context, snapshot) {
-          List exercises = snapshot.data?.docs ?? [];
+          List abss = snapshot.data?.docs ?? [];
 
-          if (exercises.isEmpty) {
+          if (abss.isEmpty) {
             return const Center(
-              child: const Text("Please add some exercises"),
+              child: const Text("Please add some abss"),
             );
           }
           //UI
 
-          Exercise exercise = exercises[widget.length].data();
+          Abs abs = abss[widget.length].data();
 
           return StreamBuilder(
               stream: imagesDBService.getImage(),
@@ -57,7 +58,7 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
 
                 Images image = images.firstWhere((element) {
                   Images checkImg = element.data();
-                  if (element.id == exercise.getImageKey()) {
+                  if (element.id == abs.getImageKey()) {
                     return true;
                   } else {
                     return false;
@@ -68,24 +69,23 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                   children: [
                     Container(
                         child: WorkoutWithoutTime(
-                      name: exercise.getName(),
-                      todo: exercise.getToDo(),
-                      set: exercise.getSet(),
-                      restTime: exercise.getRestTime(),
+                      name: abs.getName(),
+                      todo: abs.getToDo(),
+                      set: abs.getSet(),
+                      restTime: abs.getRestTime(),
                       length: widget.length,
                       image: image.getUrl(),
                     )),
                     InkWell(
                       onTap: () {
-                        if (widget.length == exercises.length - 1 && widget.set == exercise.getSet()-1) {
+                        if (widget.length == abss.length - 1 && widget.set == abs.getSet()-1) {
                           Navigator.pushNamed(context, '/menu_screen');
                         } else {
-                          
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        StrengthRest.withIndex(
+                                        AbsRest.withIndex(
                                             widget.length, widget.set)));
                           
                         }

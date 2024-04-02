@@ -44,8 +44,10 @@ class _CardioRestState extends State<CardioRest> {
           //UI
 
           Cardio cardio = cardios[widget.length].data();
+          Cardio cardioNext = cardios[widget.length].data();
+
           if (widget.set == cardio.getSet() - 1) {
-            cardio = cardios[widget.length + 1].data();
+            cardioNext = cardios[widget.length + 1].data();
           }
 
           return StreamBuilder(
@@ -60,7 +62,7 @@ class _CardioRestState extends State<CardioRest> {
 
                 Images image = images.firstWhere((element) {
                   Images checkImg = element.data();
-                  if (element.id == cardio.getImageKey()) {
+                  if (element.id == cardioNext.getImageKey()) {
                     return true;
                   } else {
                     return false;
@@ -75,7 +77,7 @@ class _CardioRestState extends State<CardioRest> {
                       todo: cardio.getToDo(),
                       set: cardio.getSet(),
                       restTime: cardio.getRestTime(),
-                      length: widget.length,
+                      length: cardios.length,
                       path: (widget.set == cardio.getSet() - 1 && widget.length != cardios.length - 1)
                           ? CardioWorkout.withIndex(widget.length + 1, 0)
                           : CardioWorkout.withIndex(

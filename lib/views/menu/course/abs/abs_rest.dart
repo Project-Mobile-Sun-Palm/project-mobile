@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:project/services/database_images.dart';
-import 'package:project/services/database_exercies.dart';
-import 'package:project/models/exercise.dart';
+import 'package:project/services/database_abs.dart';
+import 'package:project/models/abs.dart';
 import 'package:project/models/images.dart';
+import 'package:project/views/menu/course/abs/abs_workout.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
-import 'package:project/views/menu/course/strength/strength_rest.dart';
 
-class StrengthWorkout extends StatefulWidget {
-  StrengthWorkout() {
+class AbsRest extends StatefulWidget {
+  AbsRest() {
     this.length = 0;
     this.set = 0;
   }
-  StrengthWorkout.withIndex(this.length, this.set);
+  AbsRest.withIndex(this.length, this.set);
 
   late int length;
   late int set;
 
   @override
-  State<StrengthWorkout> createState() => _StrengthWorkoutState();
+  State<AbsRest> createState() => _AbsRestState();
 }
 
-class _StrengthWorkoutState extends State<StrengthWorkout> {
+class _AbsRestState extends State<AbsRest> {
   ImagesDBService imagesDBService = ImagesDBService();
-  ExerciseDBService exerciseDBService = ExerciseDBService();
+  AbsDBService absDBService = AbsDBService();
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +32,22 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
         automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
-        stream: exerciseDBService.getExercise(),
+        stream: absDBService.getAbs(),
         builder: ((context, snapshot) {
-          List exercises = snapshot.data?.docs ?? [];
+          List abss = snapshot.data?.docs ?? [];
 
-          if (exercises.isEmpty) {
+          if (abss.isEmpty) {
             return const Center(
-              child: const Text("Please add some exercises"),
+              child: const Text("Please add some abss"),
             );
           }
           //UI
 
-          Exercise exercise = exercises[widget.length].data();
+          Abs abs = abss[widget.length].data();
+          Abs absNext = abss[widget.length].data();
+          if (widget.set == abs.getSet()-1) {
+            absNext = abss[widget.length + 1].data();
+          }
 
           return StreamBuilder(
               stream: imagesDBService.getImage(),
@@ -57,7 +61,8 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
 
                 Images image = images.firstWhere((element) {
                   Images checkImg = element.data();
-                  if (element.id == exercise.getImageKey()) {
+                  print("IMG: ${checkImg.getName()}");
+                  if (element.id == absNext.getImageKey()) {
                     return true;
                   } else {
                     return false;
@@ -67,27 +72,39 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                 return Column(
                   children: [
                     Container(
-                        child: WorkoutWithoutTime(
-                      name: exercise.getName(),
-                      todo: exercise.getToDo(),
-                      set: exercise.getSet(),
-                      restTime: exercise.getRestTime(),
-                      length: widget.length,
+                        child: Rest(
+                      name: abs.getName(),
+                      todo: abs.getToDo(),
+                      set: abs.getSet(),
+                      restTime: abs.getRestTime(),
+                      length: abss.length,
+                      path: (widget.set == abs.getSet() - 1 && widget.length != abss.length - 1)
+                          ? AbsWorkout.withIndex(widget.length + 1, 0)
+                          : AbsWorkout.withIndex(
+                              widget.length, widget.set + 1),
                       image: image.getUrl(),
                     )),
                     InkWell(
                       onTap: () {
-                        if (widget.length == exercises.length - 1 && widget.set == exercise.getSet()-1) {
-                          Navigator.pushNamed(context, '/menu_screen');
-                        } else {
-                          
+                        // if (widget.length == abss.length - 1 && widget.set == abs.getSet()-1) {
+                        // } else {
+                          print("widget length:${widget.length}, set:${widget.set}");
+                          print("abs length  ${abss.length}, abs set: ${abs.getSet()}");
+                          if (widget.set >= abs.getSet()-1) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        StrengthRest.withIndex(
-                                            widget.length, widget.set)));
-                          
+                                        AbsWorkout.withIndex(
+                                            widget.length + 1, 0)));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AbsWorkout.withIndex(
+                                            widget.length, widget.set+1)));
+                          // }
                         }
                       },
                       child: Container(
@@ -99,9 +116,9 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                                 BorderRadius.all(Radius.circular(20))),
                         child: Center(
                             child: Text(
-                          "Done",
+                          "Skip",
                           style: TextStyle(
-                            fontSize: defineFont("Done", context, 15),
+                            fontSize: defineFont("Skip", context, 15),
                           ),
                           textAlign: TextAlign.center,
                         )),

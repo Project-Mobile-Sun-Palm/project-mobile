@@ -44,8 +44,10 @@ class _StrengthRestState extends State<StrengthRest> {
           //UI
 
           Exercise exercise = exercises[widget.length].data();
+          Exercise exerciseNext = exercises[widget.length].data();
+
           if (widget.set == exercise.getSet()-1) {
-            exercise = exercises[widget.length + 1].data();
+            exerciseNext = exercises[widget.length + 1].data();
           }
 
           return StreamBuilder(
@@ -61,7 +63,7 @@ class _StrengthRestState extends State<StrengthRest> {
                 Images image = images.firstWhere((element) {
                   Images checkImg = element.data();
                   print("IMG: ${checkImg.getName()}");
-                  if (element.id == exercise.getImageKey()) {
+                  if (element.id == exerciseNext.getImageKey()) {
                     return true;
                   } else {
                     return false;
@@ -77,14 +79,17 @@ class _StrengthRestState extends State<StrengthRest> {
                       set: exercise.getSet(),
                       restTime: exercise.getRestTime(),
                       length: widget.length,
-                      path: StrengthWorkout.withIndex(widget.length, widget.set),
+                      path: (widget.set == exercise.getSet() - 1 && widget.length != exercises.length - 1)
+                          ? StrengthWorkout.withIndex(widget.length + 1, 0)
+                          : StrengthWorkout.withIndex(
+                              widget.length, widget.set + 1),
                       image: image.getUrl(),
                     )),
                     InkWell(
                       onTap: () {
                         if (widget.length == exercises.length - 1 && widget.set == exercise.getSet()) {
                         } else {
-                          if (widget.set == exercise.getSet()-1) {
+                          if (widget.set >= exercise.getSet()-1) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
