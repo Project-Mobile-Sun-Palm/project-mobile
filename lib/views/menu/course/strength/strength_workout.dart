@@ -10,10 +10,12 @@ import 'package:project/views/menu/course/strength/strength_rest.dart';
 class StrengthWorkout extends StatefulWidget {
   StrengthWorkout() {
     this.length = 0;
+    this.set = 0;
   }
-  StrengthWorkout.withIndex(this.length);
+  StrengthWorkout.withIndex(this.length, this.set);
 
   late int length;
+  late int set;
 
   @override
   State<StrengthWorkout> createState() => _StrengthWorkoutState();
@@ -75,14 +77,17 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                     )),
                     InkWell(
                       onTap: () {
-                        if (widget.length == exercises.length - 1) {
+                        if (widget.length == exercises.length - 1 && widget.set == exercise.getSet()-1) {
                           Navigator.pushNamed(context, '/menu_screen');
                         } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => StrengthRest.withIndex(
-                                      widget.length)));
+                          
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        StrengthRest.withIndex(
+                                            widget.length, widget.set)));
+                          
                         }
                       },
                       child: Container(

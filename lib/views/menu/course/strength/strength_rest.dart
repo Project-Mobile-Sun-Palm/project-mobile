@@ -10,10 +10,12 @@ import 'package:project/controllers/font_controller.dart';
 class StrengthRest extends StatefulWidget {
   StrengthRest() {
     this.length = 0;
+    this.set = 0;
   }
-  StrengthRest.withIndex(this.length);
+  StrengthRest.withIndex(this.length, this.set);
 
   late int length;
+  late int set;
 
   @override
   State<StrengthRest> createState() => _StrengthRestState();
@@ -41,7 +43,10 @@ class _StrengthRestState extends State<StrengthRest> {
           }
           //UI
 
-          Exercise exercise = exercises[widget.length+1].data();
+          Exercise exercise = exercises[widget.length].data();
+          if (widget.set == exercise.getSet()-1) {
+            exercise = exercises[widget.length + 1].data();
+          }
 
           return StreamBuilder(
               stream: imagesDBService.getImage(),
@@ -72,19 +77,28 @@ class _StrengthRestState extends State<StrengthRest> {
                       set: exercise.getSet(),
                       restTime: exercise.getRestTime(),
                       length: widget.length,
-                      path: StrengthWorkout.withIndex(widget.length),
+                      path: StrengthWorkout.withIndex(widget.length, widget.set),
                       image: image.getUrl(),
                     )),
                     InkWell(
                       onTap: () {
-                        if (widget.length == exercises.length - 1) {
+                        if (widget.length == exercises.length - 1 && widget.set == exercise.getSet()) {
                         } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      StrengthWorkout.withIndex(
-                                          widget.length+1)));
+                          if (widget.set == exercise.getSet()-1) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        StrengthWorkout.withIndex(
+                                            widget.length + 1, 0)));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        StrengthWorkout.withIndex(
+                                            widget.length, widget.set+1)));
+                          }
                         }
                       },
                       child: Container(

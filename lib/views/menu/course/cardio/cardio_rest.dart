@@ -10,10 +10,12 @@ import 'package:project/controllers/font_controller.dart';
 class CardioRest extends StatefulWidget {
   CardioRest() {
     this.length = 0;
+    this.set = 0;
   }
-  CardioRest.withIndex(this.length);
+  CardioRest.withIndex(this.length, this.set);
 
   late int length;
+  late int set;
 
   @override
   State<CardioRest> createState() => _CardioRestState();
@@ -41,7 +43,10 @@ class _CardioRestState extends State<CardioRest> {
           }
           //UI
 
-          Cardio cardio = cardios[widget.length+1].data();
+          Cardio cardio = cardios[widget.length].data();
+          if (widget.set == cardio.getSet() - 1) {
+            cardio = cardios[widget.length + 1].data();
+          }
 
           return StreamBuilder(
               stream: imagesDBService.getImage(),
@@ -71,18 +76,32 @@ class _CardioRestState extends State<CardioRest> {
                       set: cardio.getSet(),
                       restTime: cardio.getRestTime(),
                       length: widget.length,
-                      path: CardioWorkout.withIndex(widget.length+1),
+                      path: (widget.set == cardio.getSet() - 1 && widget.length != cardios.length - 1)
+                          ? CardioWorkout.withIndex(widget.length + 1, 0)
+                          : CardioWorkout.withIndex(
+                              widget.length, widget.set + 1),
                       image: image.getUrl(),
                     )),
                     InkWell(
                       onTap: () {
-                        if (widget.length == cardios.length - 1) {
+                        if (widget.length == cardios.length - 1 &&
+                            widget.set == cardio.getSet()) {
                         } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CardioWorkout.withIndex(
-                                      widget.length)));
+                          if (widget.set == cardio.getSet() - 1) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CardioWorkout.withIndex(
+                                            widget.length + 1, 0)));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CardioWorkout.withIndex(
+                                            widget.length, widget.set + 1)));
+                          }
                         }
                       },
                       child: Container(
@@ -96,7 +115,7 @@ class _CardioRestState extends State<CardioRest> {
                             child: Text(
                           "Skip",
                           style: TextStyle(
-                            fontSize: defineFont("Skip", context, 15), 
+                            fontSize: defineFont("Skip", context, 15),
                           ),
                           textAlign: TextAlign.center,
                         )),

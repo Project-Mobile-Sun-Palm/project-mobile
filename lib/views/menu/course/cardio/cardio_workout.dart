@@ -11,10 +11,12 @@ import 'package:project/views/menu/menu_screen.dart';
 class CardioWorkout extends StatefulWidget {
   CardioWorkout() {
     this.length = 0;
+    this.set = 0;
   }
-  CardioWorkout.withIndex(this.length);
+  CardioWorkout.withIndex(this.length, this.set);
 
   late int length;
+  late int set;
 
   @override
   State<CardioWorkout> createState() => _CardioWorkoutState();
@@ -72,13 +74,13 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                       set: cardio.getSet(),
                       restTime: cardio.getRestTime(),
                       length: widget.length,
-                      path: widget.length != cardios.length-1 ? CardioRest.withIndex(widget.length) : MenuScreen(),
+                      path: (widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1) ?MenuScreen():CardioRest.withIndex(widget.length, widget.set),
                       image: image.getUrl(),
                     )),
                     // InkWell(
                     //   onTap: () {
-                        // if (widget.length == cardios.length - 1) {
-                        // } else {
+                    // if (widget.length == cardios.length - 1) {
+                    // } else {
                     //       Navigator.push(
                     //           context,
                     //           MaterialPageRoute(
