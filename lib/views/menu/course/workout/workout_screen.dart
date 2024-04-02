@@ -38,7 +38,7 @@ class _WorkoutWithTimeState extends State<WorkoutWithTime> {
       children: [
         createPic(widget.image, context),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: MediaQuery.of(context).size.height * 0.0275,
         ),
         Text(
           widget.name,
