@@ -6,6 +6,8 @@ import 'package:project/models/images.dart';
 import 'package:project/views/menu/course/strength/strength_workout.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+
 
 class StrengthRest extends StatefulWidget {
   StrengthRest() {
@@ -38,8 +40,11 @@ class _StrengthRestState extends State<StrengthRest> {
 
           if (exercises.isEmpty) {
             return const Center(
-              child: const Text("Please add some exercises"),
-            );
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                    ));
           }
           //UI
 
@@ -55,9 +60,12 @@ class _StrengthRestState extends State<StrengthRest> {
               builder: (context, snapshot) {
                 List images = snapshot.data?.docs ?? [];
                 if (images.isEmpty) {
-                  return const Center(
-                    child: const Text("Please add some image"),
-                  );
+            return const Center(
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                    ));
                 }
 
                 Images image = images.firstWhere((element) {
@@ -74,7 +82,7 @@ class _StrengthRestState extends State<StrengthRest> {
                   children: [
                     Container(
                         child: Rest(
-                      name: exercise.getName(),
+                      name: exerciseNext.getName(),
                       todo: exercise.getToDo(),
                       set: exercise.getSet(),
                       restTime: exercise.getRestTime(),

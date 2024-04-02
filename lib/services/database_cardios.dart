@@ -87,4 +87,20 @@ class CardioDBService{
   void addCardio(Cardio cardio) async {
     _cardioRef.add(cardio);
   }
+
+  Future<double?> getCalories(String docName) async {
+    try {
+      var snapshot = await _cardioRef.doc(docName).get();
+      if (snapshot.exists) {
+        var cardioData = snapshot.data();
+        if (cardioData != null) {
+          var cardio = cardioData as Cardio;
+          return cardio.getCalories();
+        }
+      }
+    } catch (e) {
+      print("Error getting calories: $e");
+    }
+    return null;
+  }
 }

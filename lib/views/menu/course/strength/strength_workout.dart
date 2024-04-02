@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/services/database_exercies.dart';
+import 'package:project/services/database_timer.dart';
 import 'package:project/models/exercise.dart';
 import 'package:project/models/images.dart';
+import 'package:project/models/timer.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/strength/strength_rest.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:project/services/database_user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StrengthWorkout extends StatefulWidget {
   StrengthWorkout() {
@@ -38,8 +44,11 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
 
           if (exercises.isEmpty) {
             return const Center(
-              child: const Text("Please add some exercises"),
-            );
+                child: LoadingIndicator(
+              indicatorType: Indicator.circleStrokeSpin,
+              colors: [Colors.red],
+              strokeWidth: 2,
+            ));
           }
           //UI
 
@@ -51,8 +60,11 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                 List images = snapshot.data?.docs ?? [];
                 if (images.isEmpty) {
                   return const Center(
-                    child: const Text("Please add some image"),
-                  );
+                      child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                  ));
                 }
 
                 Images image = images.firstWhere((element) {
@@ -63,6 +75,11 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                     return false;
                   }
                 }).data();
+
+                if (widget.length == 0 && widget.set == 0) {
+                  TimerDBService()
+                      .updateBegin(auth.currentUser!.uid, Timestamp.now());
+                }
 
                 return Column(
                   children: [
@@ -77,17 +94,21 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                     )),
                     InkWell(
                       onTap: () {
-                        if (widget.length == exercises.length - 1 && widget.set == exercise.getSet()-1) {
+                        DatabaseUser().updateCalories(
+                            auth.currentUser!.uid, exercise.getCalories());
+                        if (widget.length == exercises.length - 1 &&
+                            widget.set == exercise.getSet() - 1) {
+                          TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
+                          
+                            
                           Navigator.pushNamed(context, '/menu_screen');
+                          
                         } else {
-                          
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        StrengthRest.withIndex(
-                                            widget.length, widget.set)));
-                          
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => StrengthRest.withIndex(
+                                      widget.length, widget.set)));
                         }
                       },
                       child: Container(

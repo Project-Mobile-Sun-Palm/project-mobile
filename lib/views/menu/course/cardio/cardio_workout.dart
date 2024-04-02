@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
 import 'package:project/services/database_cardios.dart';
+import 'package:project/services/database_timer.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/models/cardios.dart';
 import 'package:project/models/images.dart';
@@ -7,6 +9,9 @@ import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/cardio/cardio_rest.dart';
 import 'package:project/views/menu/menu_screen.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:project/services/database_user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CardioWorkout extends StatefulWidget {
   CardioWorkout() {
@@ -39,8 +44,11 @@ class _CardioWorkoutState extends State<CardioWorkout> {
 
           if (cardios.isEmpty) {
             return const Center(
-              child: const Text("Please add some cardios"),
-            );
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                    ));
           }
           //UI
 
@@ -51,9 +59,12 @@ class _CardioWorkoutState extends State<CardioWorkout> {
               builder: (context, snapshot) {
                 List images = snapshot.data?.docs ?? [];
                 if (images.isEmpty) {
-                  return const Center(
-                    child: const Text("Please add some image"),
-                  );
+            return const Center(
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                    ));
                 }
 
                 Images image = images.firstWhere((element) {
@@ -64,6 +75,10 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                     return false;
                   }
                 }).data();
+
+                DatabaseUser().updateCalories(auth.currentUser!.uid, cardio.getCalories());
+                if(widget.length==0 && widget.set==0){TimerDBService().updateBegin(auth.currentUser!.uid, Timestamp.now());}
+                if(widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1){TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());}
 
                 return Column(
                   children: [
@@ -77,34 +92,6 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                       path: (widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1) ?MenuScreen():CardioRest.withIndex(widget.length, widget.set),
                       image: image.getUrl(),
                     )),
-                    // InkWell(
-                    //   onTap: () {
-                    // if (widget.length == cardios.length - 1) {
-                    // } else {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) => CardioRest.withIndex(
-                    //                   widget.length + 1)));
-                    //     }
-                    //   },
-                    //   child: Container(
-                    //     width: MediaQuery.of(context).size.width * 0.4,
-                    //     height: MediaQuery.of(context).size.height * 0.05,
-                    //     decoration: const BoxDecoration(
-                    //         color: Colors.orange,
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(20))),
-                    //     child: Center(
-                    //         child: Text(
-                    //       "Done",
-                    //       style: TextStyle(
-                    //         fontSize: defineFont("Done", context, 15),
-                    //       ),
-                    //       textAlign: TextAlign.center,
-                    //     )),
-                    //   ),
-                    // )
                   ],
                 );
               });

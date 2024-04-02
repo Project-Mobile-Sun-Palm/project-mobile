@@ -103,4 +103,20 @@ class AbsDBService{
   void addAbs(Abs Abs) async {
     _absRef.add(Abs);
   }
+
+  Future<double?> getCalories(String docName) async {
+    try {
+      var snapshot = await _absRef.doc(docName).get();
+      if (snapshot.exists) {
+        var absData = snapshot.data();
+        if (absData != null) {
+          var abs = absData as Abs;
+          return abs.getCalories();
+        }
+      }
+    } catch (e) {
+      print("Error getting calories: $e");
+    }
+    return null;
+  }
 }

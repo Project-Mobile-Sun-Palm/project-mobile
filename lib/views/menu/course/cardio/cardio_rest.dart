@@ -6,6 +6,7 @@ import 'package:project/models/images.dart';
 import 'package:project/views/menu/course/cardio/cardio_workout.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class CardioRest extends StatefulWidget {
   CardioRest() {
@@ -37,9 +38,12 @@ class _CardioRestState extends State<CardioRest> {
           List cardios = snapshot.data?.docs ?? [];
 
           if (cardios.isEmpty) {
-            return const Center(
-              child: const Text("Please add some cardios"),
-            );
+            return Center(
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: const [Colors.red],
+                    strokeWidth: 2,
+                    ));
           }
           //UI
 
@@ -55,9 +59,12 @@ class _CardioRestState extends State<CardioRest> {
               builder: (context, snapshot) {
                 List images = snapshot.data?.docs ?? [];
                 if (images.isEmpty) {
-                  return const Center(
-                    child: const Text("Please add some image"),
-                  );
+            return Center(
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: const [Colors.red],
+                    strokeWidth: 2,
+                    ));
                 }
 
                 Images image = images.firstWhere((element) {
@@ -73,7 +80,7 @@ class _CardioRestState extends State<CardioRest> {
                   children: [
                     Container(
                         child: WorkoutWithTime(
-                      name: cardio.getName(),
+                      name: cardioNext.getName(),
                       todo: cardio.getToDo(),
                       set: cardio.getSet(),
                       restTime: cardio.getRestTime(),

@@ -3,10 +3,11 @@ class Abs{
   late int _todo;
   late int _set;
   late int _restTime;
+  late double _calories;
   late String _imageKey;
 
-  Abs(this._name, this._todo, this._set, this._restTime);
-  Abs.withKey(this._name, this._todo, this._set, this._restTime, this._imageKey);
+  Abs(this._name, this._todo, this._set, this._restTime, this._calories);
+  Abs.withKey(this._name, this._todo, this._set, this._restTime, this._calories, this._imageKey);
 
   Abs.fromJson(Map<String, Object?> json){
     _name = json['name'] as String;
@@ -14,14 +15,22 @@ class Abs{
     _set = json['set'] as int;
     _restTime = json['restTime'] as int;
     _imageKey = json['imageKey'] as String;
+    if (json['calories'].toString().contains(".")) {
+      _calories = json['calories'] as double;
+    } else {
+      int number = json['calories'] as int;
+      _calories = number * 1.0;
+    }
+    
   }
 
-  Abs copyWith(String? name, int? todo, int? set, int? restTime){
+  Abs copyWith(String? name, int? todo, int? set, int? restTime, double? calories){
     return Abs(
       name ?? _name,
       todo ?? _todo,
       set ?? _set,
       restTime ?? _restTime,
+      calories ?? _calories,
     );
   }
 
@@ -32,7 +41,12 @@ class Abs{
       'set': _set,
       'restTime': _restTime,
       'imageKey': _imageKey,
+      'calories': _calories
     };
+  }
+
+  double getCalories(){
+    return _calories;
   }
 
   String getName(){

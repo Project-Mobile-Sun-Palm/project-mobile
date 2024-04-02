@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
 import 'package:project/services/database_abs.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/services/database_abs.dart';
 import 'package:project/models/abs.dart';
 import 'package:project/models/images.dart';
+import 'package:project/models/timer.dart';
+import 'package:project/services/database_timer.dart';
 import 'package:project/views/menu/course/workout/workout_screen.dart';
 import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/abs/abs_rest.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:project/services/database_user.dart';
 
 class AbsWorkout extends StatefulWidget {
   AbsWorkout() {
@@ -39,8 +45,11 @@ class _AbsWorkoutState extends State<AbsWorkout> {
 
           if (abss.isEmpty) {
             return const Center(
-              child: const Text("Please add some abss"),
-            );
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                    ));
           }
           //UI
 
@@ -51,9 +60,12 @@ class _AbsWorkoutState extends State<AbsWorkout> {
               builder: (context, snapshot) {
                 List images = snapshot.data?.docs ?? [];
                 if (images.isEmpty) {
-                  return const Center(
-                    child: const Text("Please add some image"),
-                  );
+            return const Center(
+                child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [Colors.red],
+                    strokeWidth: 2,
+                    ));
                 }
 
                 Images image = images.firstWhere((element) {
@@ -65,6 +77,8 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                   }
                 }).data();
 
+                if(widget.length==0 && widget.set==0){TimerDBService().updateBegin(auth.currentUser!.uid, Timestamp.now());}
+                
                 return Column(
                   children: [
                     Container(
@@ -78,7 +92,9 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                     )),
                     InkWell(
                       onTap: () {
+                        DatabaseUser().updateCalories(auth.currentUser!.uid, abs.getCalories());
                         if (widget.length == abss.length - 1 && widget.set == abs.getSet()-1) {
+                          TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
                           Navigator.pushNamed(context, '/menu_screen');
                         } else {
                             Navigator.push(

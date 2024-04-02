@@ -4,6 +4,7 @@ import 'package:project/models/account.dart';
 import 'package:project/services/auth.dart';
 import 'package:project/services/database.dart';
 import 'package:project/services/database_user.dart';
+import 'package:project/views/home/home_screen.dart';
 import 'package:project/views/login_screen.dart';
 import 'package:project/models/todo.dart';
 import 'package:project/views/menu/course/strength/strength_workout.dart';
@@ -29,9 +30,9 @@ class _MainPageState extends State<MainPage> {
             stream: Auth().authStateChanges,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return MenuScreen();
+                return HomeScreen();
               } else {
-                return MenuScreen();
+                return LogInScreen();
               }
             }));
   }

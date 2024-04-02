@@ -71,4 +71,20 @@ class ExerciseDBService{
   void addExercise(Exercise exercise) async {
     _exerciseRef.add(exercise);
   }
+
+  Future<double?> getCalories(String docName) async {
+    try {
+      var snapshot = await _exerciseRef.doc(docName).get();
+      if (snapshot.exists) {
+        var exerciseData = snapshot.data();
+        if (exerciseData != null) {
+          var exercise = exerciseData as Exercise;
+          return exercise.getCalories();
+        }
+      }
+    } catch (e) {
+      print("Error getting calories: $e");
+    }
+    return null;
+  }
 }

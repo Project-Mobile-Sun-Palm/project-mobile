@@ -1,27 +1,37 @@
-class Cardio{
+class Cardio {
   late String _name;
   late int _todo;
   late int _set;
   late int _restTime;
+  late double _calories;
   late String _imageKey;
 
-  Cardio(this._name, this._todo, this._set, this._restTime);
-  Cardio.withKey(this._name, this._todo, this._set, this._restTime, this._imageKey);
+  Cardio(this._name, this._todo, this._set, this._restTime, this._calories);
+  Cardio.withKey(this._name, this._todo, this._set, this._restTime,
+      this._calories, this._imageKey);
 
-  Cardio.fromJson(Map<String, Object?> json){
+  Cardio.fromJson(Map<String, Object?> json) {
     _name = json['name'] as String;
     _todo = json['todo'] as int;
     _set = json['set'] as int;
     _restTime = json['restTime'] as int;
     _imageKey = json['imageKey'] as String;
+    if (json['calories'].toString().contains(".")) {
+      _calories = json['calories'] as double;
+    } else {
+      int number = json['calories'] as int;
+      _calories = number * 1.0;
+    }
   }
 
-  Cardio copyWith(String? name, int? todo, int? set, int? restTime){
+  Cardio copyWith(
+      String? name, int? todo, int? set, int? restTime, double? calories) {
     return Cardio(
       name ?? _name,
       todo ?? _todo,
       set ?? _set,
       restTime ?? _restTime,
+      calories ?? _calories,
     );
   }
 
@@ -32,54 +42,59 @@ class Cardio{
       'set': _set,
       'restTime': _restTime,
       'imageKey': _imageKey,
+      'calories': _calories
     };
   }
 
-  String getName(){
+  double getCalories() {
+    return _calories;
+  }
+
+  String getName() {
     return _name;
   }
 
-  void setName(String? name){
+  void setName(String? name) {
     _name = name ?? _name;
   }
 
-  String getRestTimeAsString(){
+  String getRestTimeAsString() {
     return "Rest $_restTime seconds";
   }
 
-  int getRestTime(){
+  int getRestTime() {
     return _restTime;
   }
 
-  void setRestTime(int? restTime){
+  void setRestTime(int? restTime) {
     _restTime = restTime ?? _restTime;
   }
 
-  String getworkoutTimeAsString(){
+  String getworkoutTimeAsString() {
     return "Rest $_restTime seconds";
   }
 
-  int getSet(){
+  int getSet() {
     return _set;
   }
 
-  void setSet(int? set){
+  void setSet(int? set) {
     _set = set ?? _set;
   }
 
-  int getToDo(){
+  int getToDo() {
     return _todo;
   }
 
-  void setToDo(int? todo){
+  void setToDo(int? todo) {
     _todo = todo ?? _todo;
   }
 
-  String getImageKey(){
+  String getImageKey() {
     return _imageKey;
   }
 
-  String getDescription(){
+  String getDescription() {
     return "do $_todo times/$_set sets";
   }
 }

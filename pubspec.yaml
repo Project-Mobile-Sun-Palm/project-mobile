@@ -33,6 +33,7 @@ dependencies:
   syncfusion_flutter_gauges: ^25.1.37
   stroke_text: any
   circular_countdown_timer: ^0.2.3
+  loading_indicator: ^3.1.1
 
   # hash: ^1.0.1
 
