@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project/models/account.dart';
 import 'package:project/main.dart';
 
@@ -6,8 +9,10 @@ const String ACCOUNT_COLLECTION_REF = "User";
 
 class DatabaseUser {
   final _firestore = FirebaseFirestore.instanceFor(app: app);
+  final _storage = FirebaseStorage.instanceFor(app: app);
 
   late final CollectionReference _accountsRef;
+  late String imageUrl;
 
   DatabaseUser() {
     _accountsRef =
@@ -51,9 +56,17 @@ class DatabaseUser {
     });
   }
 
-    void updateTime(String accountID, double time) {
+  void updateTime(String accountID, double time) {
     getAll(accountID).then((value) => {
       value?.setTime(time),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
+  }
+  
+  void updateImage(String accountID, Uint8List image) async {
+      String imageUrl = await uploadImageToStorage("profile", image);
+      getAll(accountID).then((value) => {
+      value?.setImage(imageUrl),
       updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
     });
   }
@@ -162,4 +175,30 @@ class DatabaseUser {
     }
     return null;
   }
+
+  Future<String?> getImage(String userId) async {
+    try {
+      var snapshot = await _accountsRef.doc(userId).get();
+      if (snapshot.exists) {
+        var accountData = snapshot.data();
+        if (accountData != null) {
+          var account = accountData as Account;
+          return account
+              .getImagePath();
+        }
+      }
+    } catch (e) {
+      print("Error getting username: $e");
+    }
+    return null;
+  }
+
+  Future<String> uploadImageToStorage(String childName, Uint8List file) async {
+    Reference ref = _storage.ref().child(childName);
+    UploadTask uploadTask = ref.putData(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
 }

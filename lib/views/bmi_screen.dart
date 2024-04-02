@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/services/auth.dart';
-import 'package:project/services/database_user.dart';
+import 'package:project/services/database_users.dart';
 
 class BMIScreen extends StatefulWidget {
   const BMIScreen({super.key});

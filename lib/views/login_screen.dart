@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project/services/auth.dart';
 
 class LogInScreen extends StatefulWidget {
-  LogInScreen({super.key});
+  const LogInScreen({super.key});
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -11,6 +11,7 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   String? errorMessage = '';
+  bool _passwordVisible = true;
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
@@ -38,10 +39,7 @@ class _LogInScreenState extends State<LogInScreen> {
       decoration: const InputDecoration(
         prefixIcon: Icon(Icons.email),
         hintText: 'email',
-        border: OutlineInputBorder(),
-        // focusedBorder: OutlineInputBorder(
-        //   borderSide: BorderSide(color: Colors.deepOrange)
-        // )
+        border: OutlineInputBorder()
       ),
     );
   }
@@ -51,27 +49,31 @@ class _LogInScreenState extends State<LogInScreen> {
   ) {
     return TextField(
       controller: controller,
-      decoration: const InputDecoration(
-        prefixIcon: Icon(Icons.email),
+      obscureText: _passwordVisible,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.email),
         hintText: 'password',
-        border: OutlineInputBorder(),
-        // focusedBorder: OutlineInputBorder(
-        //   borderSide: BorderSide(color: Colors.deepOrange)
-        // )
+        suffixIcon: IconButton(
+          icon: Icon(
+          _passwordVisible
+          ? Icons.visibility_off
+          : Icons.visibility,
+          color: Colors.black54,
+          ),
+          onPressed: () {
+            setState(() {
+            _passwordVisible = !_passwordVisible;
+            });
+          },
+        ),
+        border: const OutlineInputBorder()
       ),
     );
   }
 
-  Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
-  }
-
-  @override
-  void dispose() {
-    _controllerEmail.dispose();
-    _controllerPassword.dispose();
-    super.dispose();
-  }
+  // Widget _errorMessage() {
+  //   return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -205,16 +207,16 @@ class _LogInScreenState extends State<LogInScreen> {
         
 // Forget Password, Create account
                     SizedBox(
-                      width: 270,
+                      width: 275,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
                             onTap: () {},
-                            child: const Text("Forget Password?", style: TextStyle(
+                            child: const Text("Don't have an account?", style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400
                             )),
                           ),
                           InkWell(
@@ -223,7 +225,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             },
                             child: const Text("Create account", style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600
                             )),
                           )

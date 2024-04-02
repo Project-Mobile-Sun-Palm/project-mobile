@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/controllers/bmi_controller.dart';
 import 'package:project/controllers/time_converter.dart';
 import 'package:project/main.dart';
-import 'package:project/services/database_user.dart';
+import 'package:project/services/database_users.dart';
 import 'package:project/views/home/calories_scale.dart';
 import 'package:project/services/auth.dart';
 import 'package:project/controllers/font_controller.dart';
@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double training_time = -1;
   double bmi = -1;
   double calories = -1;
+  String image = "";
 
   @override
   Widget build(BuildContext context) {
@@ -50,35 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
               training_time = value ?? 0; //Get Training Time
             })
           });
+          
+      DatabaseUser().getImage(auth.currentUser!.uid).then((value) => {
+            setState(() {
+              image = value ?? "";
+            })
+      });
     }
 
-    // void refresh() {
-    //   DatabaseUser().getUsername(auth.currentUser!.uid).then((value) => {
-    //         setState(() {
-    //           username = value ?? "No user Name"; //Get Username
-    //         })
-    //       });
-
-    //   DatabaseUser().getBmi(auth.currentUser!.uid).then((value) => {
-    //         setState(() {
-    //           bmi = value ?? 0; //Get BMI
-    //         })
-    //       });
-
-    //   DatabaseUser().getCalories(auth.currentUser!.uid).then((value) => {
-    //         setState(() {
-    //           calories = value ?? 0; //Get Calories
-    //         })
-    //       });
-
-    //   DatabaseUser().getTime(auth.currentUser!.uid).then((value) => {
-    //         setState(() {
-    //           training_time = value ?? 0; //Get Training Time
-    //         })
-    //       });
-    // }
-
     return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
       body: Column(
         children: [
           const SizedBox(
@@ -97,18 +79,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   username = "";
                   Navigator.pushNamed(context, '/setting_screen');
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Container(
-                    height: 75,
-                    width: 75,
-                    child: Icon(
-                      Icons.person,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                    color: Colors.deepPurple,
-                  ),
+
+                child: SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: image != "" ? 
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(image, fit: BoxFit.cover,),
+                    ) : 
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd3Z1x2Gh1fwbXhqvNekPS4DfWm0rdweKQjA&usqp=CAU",
+                        fit: BoxFit.cover
+                      ),
+                    )
                 ),
               ),
 
@@ -121,8 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(username,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: defineFont(username, context, 15))),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold, 
+                      fontSize: defineFont(username, context, 15)
+                    )
+                  ),
                   // Text("bio: (inspiration)",
                   //     style:
                   //         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -133,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // LogOut
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                 child: InkWell(
                   onTap: () {
                     Auth().signOut();
@@ -332,30 +321,28 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               Navigator.pushNamed(context, '/menu_screen');
             },
-            child: Card(
-              child: Container(
-                height: 60,
-                width: 300,
-                decoration: BoxDecoration(
-                    color: Colors.deepOrange[400],
-                    borderRadius: BorderRadius.circular(20)),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("   "),
-                    Text("Workout",
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                    Text("  "),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.white,
-                      size: 30,
-                    )
-                  ],
-                ),
+            child: Container(
+              height: 60,
+              width: 300,
+              decoration: BoxDecoration(
+                  color: Colors.deepOrange[400],
+                  borderRadius: BorderRadius.circular(20)),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("   "),
+                  Text("Workout",
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
+                  Text("  "),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                    size: 30,
+                  )
+                ],
               ),
             ),
           )

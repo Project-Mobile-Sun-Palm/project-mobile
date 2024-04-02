@@ -4,25 +4,29 @@ class Account {
   late double _time;
   late double _calories;
   late double _bmi;
+  late String _imagePath;
 
   Account(this._username, this._email) {
     this._time = 0;
     this._bmi = 0;
     this._calories = 0;
+    this._imagePath = "";
   }
 
   Account.withAllData(String? username, String? email, double? time,
-      double? bmi, double? calories) {
+      double? bmi, double? calories, String ? impagePath) {
     username ?? _username;
     email ?? _email;
     time ?? _time;
     bmi ?? _bmi;
     calories ?? _calories;
+    impagePath ?? _imagePath;
   }
 
   Account.fromJson(Map<String, Object?> json) {
     _username = json['username'] as String;
     _email = json['email'] as String;
+    _imagePath = json['imagePath'] as String;
 
     if (json['time'].toString().contains(".")) {
       _time = json['time'] as double;
@@ -55,9 +59,9 @@ class Account {
   }
 
   Account copyWith(String? username, String? email, double? time, double? bmi,
-      double? calories) {
+      double? calories, String? imagePath) {
     return Account.withAllData(username ?? _username, email ?? _email,
-        time ?? _time, bmi ?? _bmi, calories ?? _calories);
+        time ?? _time, bmi ?? _bmi, calories ?? _calories, imagePath ?? _imagePath);
   }
 
   Map<String, Object?> toJson() {
@@ -67,6 +71,7 @@ class Account {
       'time': _time,
       'calories': _calories,
       'bmi': _bmi,
+      'imagePath': _imagePath
     };
   }
 
@@ -94,6 +99,10 @@ class Account {
     return _bmi;
   }
 
+  String getImagePath() {
+    return _imagePath;
+  }
+
   void setUsername(String username) {
     _username = username;
   }
@@ -105,4 +114,8 @@ class Account {
   void setTime(double? time){
     _time += time ?? 0;
   }
+  void setImage(String image) {
+    _imagePath = image;
+  }
+
 }

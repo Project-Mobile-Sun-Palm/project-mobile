@@ -16,7 +16,7 @@ class SportCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height * 0.1,
           width: MediaQuery.of(context).size.width * 1.0,
           child: Row(

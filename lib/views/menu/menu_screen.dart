@@ -3,9 +3,8 @@ import 'menu_card.dart';
 import 'package:project/models/timer.dart';
 import 'package:project/services/database_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project/main.dart';
-import 'package:project/services/database_user.dart';
+import 'package:project/services/database_users.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -42,7 +41,7 @@ class _MenuScreenState extends State<MenuScreen> {
             print(time.toString());
             print(time.inSeconds.toString());
             DatabaseUser().updateTime(
-                auth.currentUser!.uid, time.inSeconds * 1.0);
+                auth.currentUser!.uid, (time.inSeconds * 1.0).abs());
 
             TimerDBService().updateTimer(
                 auth.currentUser!.uid, Timer(Timestamp.now(), Timestamp.now()));

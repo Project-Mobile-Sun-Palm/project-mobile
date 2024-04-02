@@ -10,7 +10,7 @@ import 'package:project/controllers/font_controller.dart';
 import 'package:project/views/menu/course/cardio/cardio_rest.dart';
 import 'package:project/views/menu/menu_screen.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:project/services/database_user.dart';
+import 'package:project/services/database_users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CardioWorkout extends StatefulWidget {

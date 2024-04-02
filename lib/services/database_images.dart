@@ -5,7 +5,7 @@ import 'package:project/main.dart';
 const String IMAGES_COLLECTION_REF = "Images";
 
 class ImagesDBService{
-  final _firestore = FirebaseFirestore.instanceFor(app: app);
+  // final _firestore = FirebaseFirestore.instanceFor(app: app);
   late final CollectionReference _imagesRef;
 
   ImagesDBService(){
