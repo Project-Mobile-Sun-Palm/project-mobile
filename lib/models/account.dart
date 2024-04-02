@@ -86,6 +86,10 @@ class Account {
     return _calories;
   }
 
+  void setCalories(double? calorires){
+    _calories += calorires ?? 0;
+  }
+
   double getBmi() {
     return _bmi;
   }
@@ -96,5 +100,9 @@ class Account {
 
   void setBMI(double bmi) {
     _bmi = bmi;
+  }
+
+  void setTime(double? time){
+    _time += time ?? 0;
   }
 }

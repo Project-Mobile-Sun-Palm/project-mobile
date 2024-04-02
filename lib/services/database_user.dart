@@ -37,9 +37,23 @@ class DatabaseUser {
     });
   }
 
+  void updateCalories(String accountID, double calories) {
+    getAll(accountID).then((value) => {
+      value?.setCalories(calories),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
+  }
+
   void updateUsername(String accountID, String username) {
     getAll(accountID).then((value) => {
       value?.setUsername(username),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
+  }
+
+    void updateTime(String accountID, double time) {
+    getAll(accountID).then((value) => {
+      value?.setTime(time),
       updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
     });
   }
