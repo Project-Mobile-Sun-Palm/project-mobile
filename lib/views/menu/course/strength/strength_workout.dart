@@ -18,12 +18,14 @@ class StrengthWorkout extends StatefulWidget {
     this.length = 0;
     this.set = 0;
     this.calories = 0;
+    this.name = "Strength";
   }
-  StrengthWorkout.withIndex(this.length, this.set, this.calories);
+  StrengthWorkout.withIndex(this.length, this.set, this.calories, this.name);
 
   late int length;
   late int set;
   late double calories;
+  late String name;
 
   @override
   State<StrengthWorkout> createState() => _StrengthWorkoutState();
@@ -103,14 +105,14 @@ class _StrengthWorkoutState extends State<StrengthWorkout> {
                           TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
                           Navigator.push(
                             context, MaterialPageRoute(
-                              builder: (context) => BeforeFinishScreen(calories: widget.calories,)));
+                              builder: (context) => BeforeFinishScreen(calories: widget.calories, name: widget.name)));
                           
                         } else {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => StrengthRest.withIndex(
-                                      widget.length, widget.set, widget.calories)));
+                                      widget.length, widget.set, widget.calories, widget.name)));
                         }
                       },
                       child: Container(

@@ -13,12 +13,14 @@ class AbsRest extends StatefulWidget {
     this.length = 0;
     this.set = 0;
     this.calories = 0;
+    this.name = "Abs";
   }
-  AbsRest.withIndex(this.length, this.set, this.calories);
+  AbsRest.withIndex(this.length, this.set, this.calories, this.name);
   
   late int length;
   late int set;
   late double calories;
+  late String name;
 
   @override
   State<AbsRest> createState() => _AbsRestState();
@@ -89,8 +91,8 @@ class _AbsRestState extends State<AbsRest> {
                       length: abss.length,
                       path: (widget.set == abs.getSet() - 1 &&
                               widget.length != abss.length - 1)
-                          ? AbsWorkout.withIndex(widget.length + 1, 0, widget.calories)
-                          : AbsWorkout.withIndex(widget.length, widget.set + 1, widget.calories),
+                          ? AbsWorkout.withIndex(widget.length + 1, 0, widget.calories, widget.name)
+                          : AbsWorkout.withIndex(widget.length, widget.set + 1, widget.calories, widget.name),
                       image: image.getUrl(),
                     )),
                     InkWell(
@@ -106,13 +108,13 @@ class _AbsRestState extends State<AbsRest> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AbsWorkout.withIndex(
-                                      widget.length + 1, 0, widget.calories)));
+                                      widget.length + 1, 0, widget.calories, widget.name)));
                         } else {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AbsWorkout.withIndex(
-                                      widget.length, widget.set + 1, widget.calories)));
+                                      widget.length, widget.set + 1, widget.calories, widget.name)));
                           // }
                         }
                       },

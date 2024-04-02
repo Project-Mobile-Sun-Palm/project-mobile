@@ -56,11 +56,9 @@ class _CardPageState extends State<CardPage> {
                     itemCount: abss.length,
                     itemBuilder: (context, index) {
                       Abs abs = abss[index].data();
-                      String absId = abss[index].id;
 
                       //search image
                       Images image = images.firstWhere((element) {
-                        Images checkImg = element.data();
                         if (element.id == abs.getImageKey()) {
                           return true;
                         } else {

@@ -5,7 +5,6 @@ import 'package:project/main.dart';
 const ABS_COLLECTION_REF = "Abs";
 
 class AbsDBService{
-  final _firestore = FirebaseFirestore.instanceFor(app: app);
   late final CollectionReference _absRef;
 
   AbsDBService(){

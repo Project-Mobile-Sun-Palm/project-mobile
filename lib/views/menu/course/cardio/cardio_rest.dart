@@ -13,12 +13,14 @@ class CardioRest extends StatefulWidget {
     this.length = 0;
     this.set = 0;
     this.calories = 0;
+    this.name = "Cardio";
   }
-  CardioRest.withIndex(this.length, this.set, this.calories);
+  CardioRest.withIndex(this.length, this.set, this.calories, this.name);
 
   late int length;
   late int set;
   late double calories;
+  late String name;
 
   @override
   State<CardioRest> createState() => _CardioRestState();
@@ -87,9 +89,9 @@ class _CardioRestState extends State<CardioRest> {
                       restTime: cardio.getRestTime(),
                       length: cardios.length,
                       path: (widget.set == cardio.getSet() - 1 && widget.length != cardios.length - 1)
-                          ? CardioWorkout.withIndex(widget.length + 1, 0, widget.calories)
+                          ? CardioWorkout.withIndex(widget.length + 1, 0, widget.calories, widget.name)
                           : CardioWorkout.withIndex(
-                              widget.length, widget.set + 1, widget.calories),
+                              widget.length, widget.set + 1, widget.calories, widget.name),
                       image: image.getUrl(),
                     )),
                     InkWell(
@@ -103,14 +105,14 @@ class _CardioRestState extends State<CardioRest> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         CardioWorkout.withIndex(
-                                            widget.length + 1, 0, widget.calories)));
+                                            widget.length + 1, 0, widget.calories, widget.name)));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         CardioWorkout.withIndex(
-                                            widget.length, widget.set + 1, widget.calories)));
+                                            widget.length, widget.set + 1, widget.calories, widget.name)));
                           }
                         }
                       },

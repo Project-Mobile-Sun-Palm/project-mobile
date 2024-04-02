@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import "package:project/controllers/font_controller.dart";
-import "package:project/models/exercise.dart";
 import 'package:stroke_text/stroke_text.dart';
-import 'package:project/views/menu/course/strength/strength_rest.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:project/views/menu/course/strength/strength_workout.dart';
 
 class WorkoutWithTime extends StatefulWidget {
   final String name;

@@ -7,11 +7,14 @@ import 'package:project/models/images.dart';
 import 'package:project/models/timer.dart';
 import 'package:project/services/database_images.dart';
 import 'package:project/services/database_timer.dart';
+import 'package:project/services/database_users.dart';
+import 'package:intl/intl.dart';
 
 class FinishedScreen extends StatefulWidget {
-  FinishedScreen({super.key, required this.calories});
+  FinishedScreen({super.key, required this.calories, required this.name});
 
   late double calories;
+  late String name;
 
   @override
   State<FinishedScreen> createState() => _FinishedScreenState();
@@ -75,7 +78,7 @@ class _FinishedScreenState extends State<FinishedScreen> {
 
               //search image
               Images image = images.firstWhere((element) {
-                if (element.id == "Abs") {
+                if (element.id == widget.name) {
                   return true;
                 } else {
                   return false;
@@ -166,8 +169,10 @@ class _FinishedScreenState extends State<FinishedScreen> {
                 ),
 
                 InkWell(
-                  onTap: () async {
-                    await HistoryController().addData(Timestamp.now(), image.getName(), (time.inSeconds * 1.0).abs(), widget.calories);
+                  onTap: () {
+                    HistoryController().addData(Timestamp.now(), image.getName(), (time.inSeconds * 1.0).abs(), widget.calories);
+                    String docPath = "${auth.currentUser!.uid}${Timestamp.now().toDate().toString().substring(0, 18)}";
+                    DatabaseUser().updateHistoryKey(auth.currentUser!.uid, docPath);
                     Navigator.pushNamed(context, '/bottomnavbar');
                   },
                   child: Container(

@@ -5,7 +5,6 @@ import 'package:project/main.dart';
 const String CARDIO_COLLECTION_REF = "Cardio";
 
 class CardioDBService{
-  final _firestore = FirebaseFirestore.instanceFor(app: app);
   late final CollectionReference _cardioRef;
 
   CardioDBService(){

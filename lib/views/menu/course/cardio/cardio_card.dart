@@ -57,11 +57,9 @@ class _CardPageState extends State<CardPage> {
                     itemCount: cardios.length,
                     itemBuilder: (context, index) {
                       Cardio cardio = cardios[index].data();
-                      String cardioId = cardios[index].id;
 
                       //search image
                       Images image = images.firstWhere((element) {
-                        Images checkImg = element.data();
                         if (element.id == cardio.getImageKey()) {
                           return true;
                         } else {

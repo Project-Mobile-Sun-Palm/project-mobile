@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project/main.dart';
+import 'package:intl/intl.dart';
 
 class HistoryController {
   var collection = FirebaseFirestore.instanceFor(app: app).collection("History");
@@ -12,6 +13,8 @@ class HistoryController {
       "time": time,
       "calories": calories
     };
-    collection.doc(auth.currentUser!.uid).set(data1);
+
+    String docPath = "${auth.currentUser!.uid}${Timestamp.now().toDate().toString().substring(0, 18)}";
+    collection.doc(docPath).set(data1);
   }
 }

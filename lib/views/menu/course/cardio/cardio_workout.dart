@@ -18,12 +18,14 @@ class CardioWorkout extends StatefulWidget {
     this.length = 0;
     this.set = 0;
     this.calories = 0;
+    this.name = "Cardio";
   }
-  CardioWorkout.withIndex(this.length, this.set, this.calories);
+  CardioWorkout.withIndex(this.length, this.set, this.calories, this.name);
 
   late int length;
   late int set;
   late double calories;
+  late String name;
 
   @override
   State<CardioWorkout> createState() => _CardioWorkoutState();
@@ -84,7 +86,7 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                   }
                 if(widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1){
                   TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
-                  return BeforeFinishScreen(calories: widget.calories);
+                  return BeforeFinishScreen(calories: widget.calories, name: widget.name,);
                   }
 
                 return Column(
@@ -98,7 +100,7 @@ class _CardioWorkoutState extends State<CardioWorkout> {
                       length: widget.length,
                       path: (
                         widget.length == cardios.length - 1 && widget.set == cardio.getSet() - 1) ? MenuScreen()
-                        :CardioRest.withIndex(widget.length, widget.set, widget.calories),
+                        :CardioRest.withIndex(widget.length, widget.set, widget.calories, widget.name),
                       image: image.getUrl(),
                     )),
                   ],

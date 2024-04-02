@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project/views/menu/course/workout/finished_screen.dart';
 
 class BeforeFinishScreen extends StatelessWidget {
-  BeforeFinishScreen({required this.calories});
+  BeforeFinishScreen({required this.calories, required this.name});
 
   double calories;
+  String name;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class BeforeFinishScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Finished Cardio",
+              "Finished ${name}",
               style: TextStyle(
                 fontSize: 45,
               ),
@@ -26,6 +27,7 @@ class BeforeFinishScreen extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => FinishedScreen(
                               calories: calories,
+                              name: name,
                             )));
               },
               child: Icon(

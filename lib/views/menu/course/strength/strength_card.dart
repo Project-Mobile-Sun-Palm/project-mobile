@@ -58,11 +58,9 @@ class _CardPageState extends State<CardPage> {
                     itemCount: exercises.length,
                     itemBuilder: (context, index) {
                       Exercise exercise = exercises[index].data();
-                      String exerciseId = exercises[index].id;
 
                       //search image
                       Images image = images.firstWhere((element) {
-                        Images checkImg = element.data();
                         if (element.id == exercise.getImageKey()) {
                           return true;
                         } else {

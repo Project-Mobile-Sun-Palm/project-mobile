@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
 import 'package:project/models/account.dart';
 import 'package:project/models/history.dart';
+import 'package:project/services/auth.dart';
 import 'package:project/services/database_history.dart';
 import 'package:project/services/database_users.dart';
 import 'package:project/views/history/history_card.dart';
@@ -32,6 +34,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
           stream: databaseUser.getAccounts(),
           builder: (context, snapshot) {
             List userss = snapshot.data?.docs ?? [];
+            Account account = Account("No user", "No email");
+            for (var i in userss) {
+              if (i.id == Auth().currentUser!.uid) {
+                account = i.data();
+              }
+            }
 
             if (userss.isEmpty) {
               return const Center(
@@ -50,28 +58,41 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     );
                   }
                   return ListView.builder(
-                    itemCount: userss.length,
+                    itemCount: account.getHistoryKey().length,
                     itemBuilder: (context, index) {
-                      Account users = userss[index].data();
-
-                      History history = histories.firstWhere((element) {
-                        if (element.id == users.getHistoryKey()) {
-                          return true;
-                        } else {
-                          return false;
+                      for (var i in histories) {
+                        if (i.id == account.getHistoryKey()[index]) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            child: HistoryCard(
+                                date: i.data().getDate(),
+                                name: i.data().getName(),
+                                time: i.data().getTime(),
+                                calories: i.data().getCalories(),
+                            )
+                          );
                         }
-                      }).data();
+                      }
 
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
-                        child: HistoryCard(
-                            date: history.getDate(),
-                            name: history.getName(),
-                            time: history.getTime(),
-                            calories: history.getCalories(),
-                        )
-                      );
+                      // History history = histories.firstWhere((element) {
+                      //   if (element.id == users.getHistoryKey()[index]) {
+                      //     return true;
+                      //   } else {
+                      //     return false;
+                      //   }
+                      // }).data();
+
+                      // return Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       vertical: 10, horizontal: 10),
+                      //   child: HistoryCard(
+                      //       date: history.getDate(),
+                      //       name: history.getName(),
+                      //       time: history.getTime(),
+                      //       calories: history.getCalories(),
+                      //   )
+                      // );
                     },
                   );
                 }));

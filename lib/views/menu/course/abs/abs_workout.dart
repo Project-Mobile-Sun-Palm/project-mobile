@@ -18,12 +18,14 @@ class AbsWorkout extends StatefulWidget {
     this.length = 0;
     this.set = 0;
     this.calories = 0;
+    this.name = "Abs";
   }
-  AbsWorkout.withIndex(this.length, this.set, this.calories);
+  AbsWorkout.withIndex(this.length, this.set, this.calories, this.name);
 
   late int length;
   late int set;
   late double calories;
+  late String name;
 
   @override
   State<AbsWorkout> createState() => _AbsWorkoutState();
@@ -70,7 +72,6 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                 }
 
                 Images image = images.firstWhere((element) {
-                  Images checkImg = element.data();
                   if (element.id == abs.getImageKey()) {
                     return true;
                   } else {
@@ -99,7 +100,7 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                           TimerDBService().updateFinish(auth.currentUser!.uid, Timestamp.now());
                           Navigator.push(
                             context, MaterialPageRoute(
-                              builder: (context) => BeforeFinishScreen(calories: widget.calories,)));
+                              builder: (context) => BeforeFinishScreen(calories: widget.calories, name: widget.name)));
 
 
 
@@ -109,7 +110,7 @@ class _AbsWorkoutState extends State<AbsWorkout> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         AbsRest.withIndex(
-                                            widget.length, widget.set, widget.calories)));
+                                            widget.length, widget.set, widget.calories, widget.name)));
                           
                         }
                       },

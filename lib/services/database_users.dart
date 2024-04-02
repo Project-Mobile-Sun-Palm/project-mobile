@@ -72,11 +72,10 @@ class DatabaseUser {
   }
 
   void updateHistoryKey(String accountID, String historyKey) async {
-      // String imageUrl = await uploadImageToStorage("profile", image);
-      // getAll(accountID).then((value) => {
-      // value?.setImage(imageUrl),
-      // updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
-    // });
+      getAll(accountID).then((value) => {
+      value?.addHistoryKey(historyKey),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
   }
 
   void deleteAccount(String accountID) {
@@ -201,7 +200,7 @@ class DatabaseUser {
     return null;
   }
 
-  Future<String?> getHistoryKey(String userId) async {
+  Future<List?> getHistoryKey(String userId) async {
     try {
       var snapshot = await _accountsRef.doc(userId).get();
       if (snapshot.exists) {

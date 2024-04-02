@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class Account {
   late String _username;
   late String _email;
@@ -5,18 +7,18 @@ class Account {
   late double _calories;
   late double _bmi;
   late String _imagePath;
-  late String _historyKey;
+  late List _historyKey;
 
   Account(this._username, this._email) {
     this._time = 0;
     this._bmi = 0;
     this._calories = 0;
     this._imagePath = "";
-    this._historyKey = "";
+    this._historyKey = [];
   }
 
   Account.withAllData(String? username, String? email, double? time,
-      double? bmi, double? calories, String ? impagePath, String ? historyKey) {
+      double? bmi, double? calories, String ? impagePath, List ? historyKey) {
     username ?? _username;
     email ?? _email;
     time ?? _time;
@@ -30,7 +32,7 @@ class Account {
     _username = json['username'] as String;
     _email = json['email'] as String;
     _imagePath = json['imagePath'] as String;
-    _historyKey = json['historyKey'] as String;
+    _historyKey = json['historyKey'] as List;
  
     if (json['time'].toString().contains(".")) {
       _time = json['time'] as double;
@@ -56,7 +58,7 @@ class Account {
   }
 
   Account copyWith(String? username, String? email, double? time, double? bmi,
-      double? calories, String? imagePath, String? historyKey) {
+      double? calories, String? imagePath, List? historyKey) {
     return Account.withAllData(username ?? _username, email ?? _email,
         time ?? _time, bmi ?? _bmi, calories ?? _calories, imagePath ?? _imagePath, historyKey ?? _historyKey);
   }
@@ -101,7 +103,7 @@ class Account {
     return _imagePath;
   }
 
-  String getHistoryKey() {
+  List getHistoryKey() {
     return _historyKey;
   }
 
@@ -121,8 +123,8 @@ class Account {
     _imagePath = image;
   }
 
-  void setHistoryKey(String historyKey) {
-    _historyKey = historyKey;
+  void addHistoryKey(String historyKey) {
+    _historyKey.add(historyKey);
   }
 
 }
