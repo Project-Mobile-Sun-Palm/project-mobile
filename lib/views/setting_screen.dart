@@ -94,131 +94,133 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(height: 60,),
-
-            Row(
-              children: [
-                Text("   "),
-
-                IconButton(
-                  onPressed: goBack, 
-                  icon: const Icon(Icons.arrow_back, size: 28, color: Colors.black,)
-                ),
-
-                const Text(" Setting", style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold
-                ),)
-              ],
-            ),
-
-            const SizedBox(
-              height: 100,
-            ),
-
-            Stack(
-              children: [
-                _image != null ?
-                  CircleAvatar(
-                    radius: 75,
-                    backgroundImage: MemoryImage(_image!),
-                  ) :
-                const CircleAvatar(
-                  radius:  75,
-                  backgroundImage: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd3Z1x2Gh1fwbXhqvNekPS4DfWm0rdweKQjA&usqp=CAU"
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 60,),
+        
+              Row(
+                children: [
+                  Text("   "),
+        
+                  IconButton(
+                    onPressed: goBack, 
+                    icon: const Icon(Icons.arrow_back, size: 28, color: Colors.black,)
                   ),
-                ),
-
-                Positioned(
-                  bottom: -3,
-                  left: 98,
-                  child: IconButton(
-                    onPressed: () {
-                      showImagePickerOption(context);
-                    },
-                    icon: const Icon(Icons.add_a_photo, size: 32,),
-                  ),
-                )
-                
-              ],
-            ),
-
-            const SizedBox(
-              height: 20,
-            ),
-
-            InkWell(
-              onTap: () {
-                print("updateImage");
-                DatabaseUser().updateImage(Auth().currentUser!.uid, _image!);
-              },
-              child: Container(
-                height: 50,
-                width: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.deepOrange
-                ),
-                child: const Center(
-                  child: Text("Save Profile", style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18
-                  ),),
-                ),
+        
+                  const Text(" Setting", style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold
+                  ),)
+                ],
               ),
-            ),
-
-            const SizedBox(
-              height: 30,
-            ),
-
-
-            SizedBox(
-              height: 70,
-              width: 390,
-              child: TextField(
-                controller: usernameController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  hintText: 'Username',
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepOrange)
+        
+              const SizedBox(
+                height: 100,
+              ),
+        
+              Stack(
+                children: [
+                  _image != null ?
+                    CircleAvatar(
+                      radius: 75,
+                      backgroundImage: MemoryImage(_image!),
+                    ) :
+                  const CircleAvatar(
+                    radius:  75,
+                    backgroundImage: NetworkImage(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd3Z1x2Gh1fwbXhqvNekPS4DfWm0rdweKQjA&usqp=CAU"
+                    ),
+                  ),
+        
+                  Positioned(
+                    bottom: -3,
+                    left: 98,
+                    child: IconButton(
+                      onPressed: () {
+                        showImagePickerOption(context);
+                      },
+                      icon: const Icon(Icons.add_a_photo, size: 32,),
+                    ),
                   )
+                  
+                ],
+              ),
+        
+              const SizedBox(
+                height: 20,
+              ),
+        
+              InkWell(
+                onTap: () {
+                  print("updateImage");
+                  DatabaseUser().updateImage(Auth().currentUser!.uid, _image!);
+                },
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.deepOrange
+                  ),
+                  child: const Center(
+                    child: Text("Save Profile", style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18
+                    ),),
+                  ),
                 ),
               ),
-            ),
- 
-            const SizedBox(
-              height: 15,
-            ),
-
-            InkWell(
-              onTap: () {
-                username = usernameController.text;
-                setState(() {
-                  DatabaseUser().updateUsername(Auth().currentUser!.uid, username);
-                });
-              },
-              child: Container(
-                height: 50,
-                width: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.deepOrange
-                ),
-                child: const Center(
-                  child: Text("Save Username", style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18
-                  ),),
+        
+              const SizedBox(
+                height: 30,
+              ),
+        
+        
+              SizedBox(
+                height: 70,
+                width: 390,
+                child: TextField(
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    hintText: 'Username',
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.deepOrange)
+                    )
+                  ),
                 ),
               ),
-            )
-        ],
+         
+              const SizedBox(
+                height: 15,
+              ),
+        
+              InkWell(
+                onTap: () {
+                  username = usernameController.text;
+                  setState(() {
+                    DatabaseUser().updateUsername(Auth().currentUser!.uid, username);
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.deepOrange
+                  ),
+                  child: const Center(
+                    child: Text("Save Username", style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18
+                    ),),
+                  ),
+                ),
+              )
+          ],
+        ),
       )
     );
   }
