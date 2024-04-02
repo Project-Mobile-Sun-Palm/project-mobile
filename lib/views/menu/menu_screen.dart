@@ -58,6 +58,15 @@ class _MenuScreenState extends State<MenuScreen> {
             "Exercise",
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              onPressed: (){
+                Navigator.pushNamed(context, '/home_screen');
+              }, 
+              icon: Icon(Icons.home)
+            )
+          ],
         ),
         body: const SingleChildScrollView(
           child: Column(
