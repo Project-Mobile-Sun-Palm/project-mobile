@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/controllers/font_controller.dart';
 
 class HistoryCard extends StatelessWidget {
   const HistoryCard(
