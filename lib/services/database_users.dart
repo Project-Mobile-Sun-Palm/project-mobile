@@ -42,6 +42,13 @@ class DatabaseUser {
     });
   }
 
+  void updateCalories(String accountID, double calories) {
+    getAll(accountID).then((value) => {
+      value?.setCalories(calories),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
+  }
+
   void updateUsername(String accountID, String username) {
     getAll(accountID).then((value) => {
       value?.setUsername(username),
@@ -49,6 +56,13 @@ class DatabaseUser {
     });
   }
 
+  void updateTime(String accountID, double time) {
+    getAll(accountID).then((value) => {
+      value?.setTime(time),
+      updateAccount(accountID, value ?? Account("NoUsername", "NoEmail"))
+    });
+  }
+  
   void updateImage(String accountID, Uint8List image) async {
       String imageUrl = await uploadImageToStorage("profile", image);
       getAll(accountID).then((value) => {

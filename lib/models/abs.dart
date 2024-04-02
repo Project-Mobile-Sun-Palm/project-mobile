@@ -1,4 +1,4 @@
-class Exercise{
+class Abs{
   late String _name;
   late int _todo;
   late int _set;
@@ -6,10 +6,10 @@ class Exercise{
   late double _calories;
   late String _imageKey;
 
-  Exercise(this._name, this._todo, this._set, this._restTime, this._calories);
-  Exercise.withKey(this._name, this._todo, this._set, this._restTime, this._calories, this._imageKey);
+  Abs(this._name, this._todo, this._set, this._restTime, this._calories);
+  Abs.withKey(this._name, this._todo, this._set, this._restTime, this._calories, this._imageKey);
 
-  Exercise.fromJson(Map<String, Object?> json){
+  Abs.fromJson(Map<String, Object?> json){
     _name = json['name'] as String;
     _todo = json['todo'] as int;
     _set = json['set'] as int;
@@ -21,10 +21,11 @@ class Exercise{
       int number = json['calories'] as int;
       _calories = number * 1.0;
     }
+    
   }
 
-  Exercise copyWith(String? name, int? todo, int? set, int? restTime, double? calories){
-    return Exercise(
+  Abs copyWith(String? name, int? todo, int? set, int? restTime, double? calories){
+    return Abs(
       name ?? _name,
       todo ?? _todo,
       set ?? _set,

@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/controllers/signup_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project/services/auth.dart';
+import 'package:project/services/database_timer.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -31,6 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // update database
       // UserDBService()
       //     .addAccount(Account(_controllerUsername.text, _controllerEmail.text));
+      TimerDBService().addTimer(Timestamp(0, 0), Timestamp(0, 0));
       SignUpController().addData(_controllerUsername.text, _controllerEmail.text, 0, 0, 0, "");
     } on FirebaseException catch (e) {
       print("cannot create account");

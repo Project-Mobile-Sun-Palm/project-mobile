@@ -1,4 +1,4 @@
-class Exercise{
+class Cardio {
   late String _name;
   late int _todo;
   late int _set;
@@ -6,10 +6,11 @@ class Exercise{
   late double _calories;
   late String _imageKey;
 
-  Exercise(this._name, this._todo, this._set, this._restTime, this._calories);
-  Exercise.withKey(this._name, this._todo, this._set, this._restTime, this._calories, this._imageKey);
+  Cardio(this._name, this._todo, this._set, this._restTime, this._calories);
+  Cardio.withKey(this._name, this._todo, this._set, this._restTime,
+      this._calories, this._imageKey);
 
-  Exercise.fromJson(Map<String, Object?> json){
+  Cardio.fromJson(Map<String, Object?> json) {
     _name = json['name'] as String;
     _todo = json['todo'] as int;
     _set = json['set'] as int;
@@ -23,8 +24,9 @@ class Exercise{
     }
   }
 
-  Exercise copyWith(String? name, int? todo, int? set, int? restTime, double? calories){
-    return Exercise(
+  Cardio copyWith(
+      String? name, int? todo, int? set, int? restTime, double? calories) {
+    return Cardio(
       name ?? _name,
       todo ?? _todo,
       set ?? _set,
@@ -44,55 +46,55 @@ class Exercise{
     };
   }
 
-  double getCalories(){
+  double getCalories() {
     return _calories;
   }
 
-  String getName(){
+  String getName() {
     return _name;
   }
 
-  void setName(String? name){
+  void setName(String? name) {
     _name = name ?? _name;
   }
 
-  String getRestTimeAsString(){
+  String getRestTimeAsString() {
     return "Rest $_restTime seconds";
   }
 
-  int getRestTime(){
+  int getRestTime() {
     return _restTime;
   }
 
-  void setRestTime(int? restTime){
+  void setRestTime(int? restTime) {
     _restTime = restTime ?? _restTime;
   }
 
-  String getworkoutTimeAsString(){
+  String getworkoutTimeAsString() {
     return "Rest $_restTime seconds";
   }
 
-  int getSet(){
+  int getSet() {
     return _set;
   }
 
-  void setSet(int? set){
+  void setSet(int? set) {
     _set = set ?? _set;
   }
 
-  int getToDo(){
+  int getToDo() {
     return _todo;
   }
 
-  void setToDo(int? todo){
+  void setToDo(int? todo) {
     _todo = todo ?? _todo;
   }
 
-  String getImageKey(){
+  String getImageKey() {
     return _imageKey;
   }
 
-  String getDescription(){
+  String getDescription() {
     return "do $_todo times/$_set sets";
   }
 }

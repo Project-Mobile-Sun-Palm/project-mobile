@@ -91,6 +91,10 @@ class Account {
     return _calories;
   }
 
+  void setCalories(double? calorires){
+    _calories += calorires ?? 0;
+  }
+
   double getBmi() {
     return _bmi;
   }
@@ -107,6 +111,9 @@ class Account {
     _bmi = bmi;
   }
 
+  void setTime(double? time){
+    _time += time ?? 0;
+  }
   void setImage(String image) {
     _imagePath = image;
   }

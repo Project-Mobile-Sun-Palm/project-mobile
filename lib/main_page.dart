@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/models/account.dart';
 import 'package:project/services/auth.dart';
+import 'package:project/views/home/home_screen.dart';
 import 'package:project/services/database_services.dart';
 import 'package:project/services/database_users.dart';
 import 'package:project/views/login_screen.dart';
 import 'package:project/models/todo.dart';
+import 'package:project/views/menu/course/strength/strength_workout.dart';
+import 'package:project/views/menu/menu_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -24,17 +27,15 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: Auth().authStateChanges,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const BottomNavBar();
-          } else {
-            return LogInScreen();
-          }
-        }
-      )
-    );
+        body: StreamBuilder(
+            stream: Auth().authStateChanges,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return HomeScreen();
+              } else {
+                return LogInScreen();
+              }
+            }));
   }
 
   Widget _messagesListView() {
