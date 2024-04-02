@@ -95,6 +95,6 @@ class Cardio {
   }
 
   String getDescription() {
-    return "do $_todo times/$_set sets";
+    return "do $_todo seconds/$_set sets";
   }
 }
